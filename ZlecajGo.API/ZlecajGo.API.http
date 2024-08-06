@@ -1,0 +1,6 @@
+@ZlecajGo.API_HostAddress = http://localhost:5174
+
+GET {{ZlecajGo.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
