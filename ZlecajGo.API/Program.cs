@@ -1,5 +1,6 @@
 using Serilog;
 using ZlecajGo.API.Extensions;
+using ZlecajGo.API.Middlewares;
 using ZlecajGo.Infrastructure.Extensions;
 using ZlecajGo.Infrastructure.Seeders;
 
@@ -21,6 +22,8 @@ var seeder = scope.ServiceProvider.GetRequiredService<IZlecajGoSeeder>();
 await seeder.SeedAsync(false);
 
 app.UseSerilogRequestLogging();
+
+app.UseMiddleware<ErrorHandlingMiddleware>();
 
 app.UseHttpsRedirection();
 

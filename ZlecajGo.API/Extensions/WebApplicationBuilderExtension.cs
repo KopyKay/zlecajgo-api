@@ -1,4 +1,5 @@
 using Serilog;
+using ZlecajGo.API.Middlewares;
 
 namespace ZlecajGo.API.Extensions;
 
@@ -14,5 +15,7 @@ public static class WebApplicationBuilderExtension
         {
             logger.ReadFrom.Configuration(context.Configuration);
         });
+        
+        builder.Services.AddScoped<ErrorHandlingMiddleware>();
     }
 }
