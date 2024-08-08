@@ -2,7 +2,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ZlecajGo.Domain.Entities;
+using ZlecajGo.Domain.Repositories;
 using ZlecajGo.Infrastructure.Persistence;
+using ZlecajGo.Infrastructure.Repositories;
 using ZlecajGo.Infrastructure.Seeders;
 
 namespace ZlecajGo.Infrastructure.Extensions;
@@ -17,9 +19,10 @@ public static class ServiceCollectionExtension
             options.UseNpgsql(connectionString)
                 .EnableSensitiveDataLogging());
         
-        services.AddIdentityCore<User>()
+        services.AddIdentityApiEndpoints<User>()
             .AddEntityFrameworkStores<ZlecajGoContext>();
         
         services.AddScoped<IZlecajGoSeeder, ZlecajGoSeeder>();
+        services.AddScoped<IOfferRepository, OfferRepository>();
     }
 }

@@ -23,7 +23,7 @@ internal class OffersConfiguration : IEntityTypeConfiguration<Offer>
             .HasDefaultValueSql(GetUtcDateSql);
 
         builder.Property(o => o.ExpiryDateTime)
-            .HasDefaultValueSql(GetUtcDateSql);
+            .HasDefaultValueSql(GetUtcDateSql + " + INTERVAL '2 days'");
         
         builder.OwnsOne(o => o.Location, location =>
         {
