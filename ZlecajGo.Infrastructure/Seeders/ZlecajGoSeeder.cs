@@ -41,6 +41,9 @@ internal class ZlecajGoSeeder(ZlecajGoContext dbContext, UserManager<User> userM
                 itSpec,
                 other
             ];
+
+            await dbContext.Categories.AddRangeAsync(categories);
+            await dbContext.SaveChangesAsync();
             
             var pending = new Status { Name = "Oczekujące" };
             var occupied = new Status { Name = "Zajęte" };
@@ -61,6 +64,9 @@ internal class ZlecajGoSeeder(ZlecajGoContext dbContext, UserManager<User> userM
                 completed
             ];
             
+            await dbContext.Statuses.AddRangeAsync(statuses);
+            await dbContext.SaveChangesAsync();
+            
             var task = new Type { Name = "Zlecenie" };
             var service = new Type { Name = "Usługa" };
 
@@ -69,6 +75,9 @@ internal class ZlecajGoSeeder(ZlecajGoContext dbContext, UserManager<User> userM
                 task,
                 service
             ];
+            
+            await dbContext.Types.AddRangeAsync(types);
+            await dbContext.SaveChangesAsync();
         
         #endregion
         
