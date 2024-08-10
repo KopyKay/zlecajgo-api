@@ -24,5 +24,6 @@ public static class ServiceCollectionExtension
         
         services.AddScoped<IZlecajGoSeeder, ZlecajGoSeeder>();
         services.AddScoped<IOfferRepository, OfferRepository>();
+        services.AddScoped<ICategoryRepository, CategoryRepository>();
     }
 }
