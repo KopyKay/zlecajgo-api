@@ -26,6 +26,14 @@ internal class OfferRepository(ZlecajGoContext dbContext) : IOfferRepository
         return offer;
     }
 
+    public async Task<Offer?> GetOfferByIdWithTrackingAsync(Guid offerId)
+    {
+        var offer = await dbContext.Offers
+            .FirstOrDefaultAsync(o => o.Id == offerId);
+
+        return offer;
+    }
+
     public async Task<Guid> CreateOfferAsync(Offer entity)
     {
         await dbContext.Offers.AddAsync(entity);
@@ -40,5 +48,5 @@ internal class OfferRepository(ZlecajGoContext dbContext) : IOfferRepository
         await SaveChangesAsync();
     }
 
-    private async Task SaveChangesAsync() => await dbContext.SaveChangesAsync();
+    public async Task SaveChangesAsync() => await dbContext.SaveChangesAsync();
 }

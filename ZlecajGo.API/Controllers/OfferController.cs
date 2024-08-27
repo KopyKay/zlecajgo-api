@@ -2,6 +2,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using ZlecajGo.Application.Offers.Commands.CreateOffer;
 using ZlecajGo.Application.Offers.Commands.DeleteOffer;
+using ZlecajGo.Application.Offers.Commands.UpdateOfferStatus;
 using ZlecajGo.Application.Offers.Dtos;
 using ZlecajGo.Application.Offers.Queries.GetOffer;
 using ZlecajGo.Application.Offers.Queries.GetOffers;
@@ -35,6 +36,19 @@ public class OfferController(IMediator mediator) : ControllerBase
     {
         var offerId = await mediator.Send(command);
         return CreatedAtAction(nameof(GetOffer), new { offerId }, null);
+    }
+    
+    [HttpPatch("{offerId:guid}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> UpdateOffer([FromRoute] Guid offerId, [FromBody] UpdateOfferCommand command)
+    {
+        command.OfferId = offerId;
+        var isUpdated = await mediator.Send(command);
+
+        if (isUpdated) return NoContent();
+        
+        return NotFound();
     }
     
     [HttpDelete("{offerId:guid}")]
