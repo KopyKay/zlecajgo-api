@@ -13,4 +13,13 @@ internal class CategoryRepository(ZlecajGoContext dbContext) : ICategoryReposito
 
         return categories;
     }
+
+    public async Task<Category?> GetCategoryByIdAsync(int categoryId)
+    {
+        var category = await dbContext.Categories
+            .AsNoTracking()
+            .FirstOrDefaultAsync(c => c.Id == categoryId);
+
+        return category;
+    }
 }
