@@ -26,5 +26,6 @@ public static class ServiceCollectionExtension
         services.AddScoped<IOfferRepository, OfferRepository>();
         services.AddScoped<ICategoryRepository, CategoryRepository>();
         services.AddScoped<IStatusRepository, StatusRepository>();
+        services.AddScoped<ITypeRepository, TypeRepository>();
     }
 }
