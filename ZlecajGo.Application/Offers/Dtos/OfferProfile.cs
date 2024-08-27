@@ -18,15 +18,7 @@ public class OfferProfile : Profile
             .ForMember(dto => dto.Latitude, opt =>
                 opt.MapFrom(src => src.Location.Latitude))
             .ForMember(dto => dto.Longitude, opt =>
-                opt.MapFrom(src => src.Location.Longitude))
-            .ForMember(dto => dto.TypeName, opt =>
-                opt.MapFrom(src => src.Type.Name))
-            .ForMember(dto => dto.CategoryName, opt =>
-                opt.MapFrom(src => src.Category.Name))
-            .ForMember(dto => dto.StatusName, opt =>
-                opt.MapFrom(src => src.Status.Name))
-            .ForMember(dto => dto.ProviderFullName, opt =>
-                opt.MapFrom(src => src.Provider.FullName));
+                opt.MapFrom(src => src.Location.Longitude));
         
         CreateMap<CreateOfferCommand, Offer>()
             .ForMember(o => o.Location, opt =>

@@ -1,3 +1,7 @@
+using ZlecajGo.Application.Categories.Dtos;
+using ZlecajGo.Application.Statuses.Dtos;
+using ZlecajGo.Application.Types.Dtos;
+using ZlecajGo.Application.Users.Dtos;
 using ZlecajGo.Domain.Entities;
 using Type = ZlecajGo.Domain.Entities.Type;
 
@@ -17,8 +21,8 @@ public class OfferDto
     public string ZipCode { get; set; } = null!;
     public double Latitude { get; set; }
     public double Longitude { get; set; }
-    public string CategoryName { get; set; } = null!;
-    public string StatusName { get; set; } = null!;
-    public string TypeName { get; set; } = null!;
-    public string ProviderFullName { get; set; } = null!;
+    public int CategoryId { get; set; }
+    public int StatusId { get; set; }
+    public int TypeId { get; set; }
+    public string ProviderId { get; set; } = null!;
 }

@@ -12,21 +12,6 @@ internal class OfferRepository(ZlecajGoContext dbContext) : IOfferRepository
     {
         var offers = await dbContext.Offers
             .AsNoTracking()
-            .Select(o => new Offer
-            {
-                Id = o.Id,
-                Title = o.Title,
-                Description = o.Description,
-                Price = o.Price,
-                PostDateTime = o.PostDateTime,
-                ExpiryDateTime = o.ExpiryDateTime,
-                Images = o.Images,
-                Location = o.Location,
-                Type = new Type { Name = o.Type.Name },
-                Category = new Category { Name = o.Category.Name },
-                Status = new Status { Name = o.Status.Name },
-                Provider = new User { FullName = o.Provider.FullName }
-            })
             .ToListAsync();
 
         return offers;
@@ -36,23 +21,7 @@ internal class OfferRepository(ZlecajGoContext dbContext) : IOfferRepository
     {
         var offer = await dbContext.Offers
             .AsNoTracking()
-            .Where(o => o.Id == offerId)
-            .Select(o => new Offer
-            {
-                Id = o.Id,
-                Title = o.Title,
-                Description = o.Description,
-                Price = o.Price,
-                PostDateTime = o.PostDateTime,
-                ExpiryDateTime = o.ExpiryDateTime,
-                Images = o.Images,
-                Location = o.Location,
-                Type = new Type { Name = o.Type.Name },
-                Category = new Category { Name = o.Category.Name },
-                Status = new Status { Name = o.Status.Name },
-                Provider = new User { FullName = o.Provider.FullName }
-            })
-            .FirstOrDefaultAsync();
+            .FirstOrDefaultAsync(o => o.Id == offerId);
 
         return offer;
     }
@@ -71,5 +40,5 @@ internal class OfferRepository(ZlecajGoContext dbContext) : IOfferRepository
         await SaveChangesAsync();
     }
 
-    public async Task SaveChangesAsync() => await dbContext.SaveChangesAsync();
+    private async Task SaveChangesAsync() => await dbContext.SaveChangesAsync();
 }

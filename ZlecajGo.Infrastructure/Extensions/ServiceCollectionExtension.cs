@@ -23,8 +23,8 @@ public static class ServiceCollectionExtension
             .AddEntityFrameworkStores<ZlecajGoContext>();
         
         services.AddScoped<IZlecajGoSeeder, ZlecajGoSeeder>();
-        services.AddScoped<IOfferRepository, OfferRepository>();
         services.AddScoped<ICategoryRepository, CategoryRepository>();
+        services.AddScoped<IOfferRepository, OfferRepository>();
         services.AddScoped<IStatusRepository, StatusRepository>();
         services.AddScoped<ITypeRepository, TypeRepository>();
     }
