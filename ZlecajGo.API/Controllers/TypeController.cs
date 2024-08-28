@@ -1,4 +1,5 @@
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ZlecajGo.Application.Types.Dtos;
 using ZlecajGo.Application.Types.Queries.GetType;
@@ -8,6 +9,7 @@ namespace ZlecajGo.API.Controllers;
 
 [ApiController]
 [Route("api/types")]
+[Authorize]
 public class TypeController(IMediator mediator) : ControllerBase
 {
     [HttpGet]

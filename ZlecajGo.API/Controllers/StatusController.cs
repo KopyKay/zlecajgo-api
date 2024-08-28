@@ -1,4 +1,5 @@
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ZlecajGo.Application.Statuses.Dtos;
 using ZlecajGo.Application.Statuses.Queries.GetStatus;
@@ -8,6 +9,7 @@ namespace ZlecajGo.API.Controllers;
 
 [ApiController]
 [Route("api/statuses")]
+[Authorize]
 public class StatusController(IMediator mediator) : ControllerBase
 {
     [HttpGet]

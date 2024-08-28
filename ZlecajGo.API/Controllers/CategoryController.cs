@@ -1,4 +1,5 @@
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ZlecajGo.Application.Categories.Dtos;
 using ZlecajGo.Application.Categories.Queries.GetCategories;
@@ -8,6 +9,7 @@ namespace ZlecajGo.API.Controllers;
 
 [ApiController]
 [Route("api/categories")]
+[Authorize]
 public class CategoryController(IMediator mediator) : ControllerBase
 {
     [HttpGet]

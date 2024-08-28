@@ -1,4 +1,5 @@
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ZlecajGo.Application.Offers.Commands.CreateOffer;
 using ZlecajGo.Application.Offers.Commands.DeleteOffer;
@@ -11,6 +12,7 @@ namespace ZlecajGo.API.Controllers;
 
 [ApiController]
 [Route("api/offers")]
+[Authorize]
 public class OfferController(IMediator mediator) : ControllerBase
 {
     [HttpGet]
