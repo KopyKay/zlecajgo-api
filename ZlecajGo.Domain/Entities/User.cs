@@ -4,8 +4,8 @@ namespace ZlecajGo.Domain.Entities;
 
 public class User : IdentityUser
 {
-    public string FullName { get; set; } = null!;
-    public DateOnly BirthDate { get; set; }
+    public string? FullName { get; set; }
+    public DateOnly? BirthDate { get; set; }
     public string? ProfilePictureUrl { get; set; }
     public bool IsActive { get; set; } = true;
     
