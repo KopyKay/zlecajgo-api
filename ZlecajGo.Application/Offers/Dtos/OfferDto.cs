@@ -15,7 +15,7 @@ public class OfferDto
     public decimal Price { get; set; }
     public DateTime PostDateTime { get; set; }
     public DateTime ExpiryDateTime { get; set; }
-    public byte[][]? Images { get; set; }
+    public string[]? ImageUrls { get; set; }
     public string City { get; set; } = null!;
     public string Street { get; set; } = null!;
     public string ZipCode { get; set; } = null!;

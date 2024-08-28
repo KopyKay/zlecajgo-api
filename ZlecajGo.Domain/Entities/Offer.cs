@@ -8,7 +8,7 @@ public class Offer
     public decimal Price { get; set; }
     public DateTime PostDateTime { get; set; }
     public DateTime ExpiryDateTime { get; set; }
-    public byte[][]? Images { get; set; }
+    public string[]? ImageUrls { get; set; }
     public Location Location { get; set; } = null!;
     
     public Category Category { get; set; } = null!;

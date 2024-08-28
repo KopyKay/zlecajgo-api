@@ -6,7 +6,7 @@ public class User : IdentityUser
 {
     public string FullName { get; set; } = null!;
     public DateOnly BirthDate { get; set; }
-    public byte[]? ProfilePicture { get; set; }
+    public string? ProfilePictureUrl { get; set; }
     public bool IsActive { get; set; } = true;
     
     public List<Offer> ProvidedOffers { get; set; } = [];

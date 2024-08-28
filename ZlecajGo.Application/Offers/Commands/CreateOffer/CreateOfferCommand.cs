@@ -8,7 +8,7 @@ public class CreateOfferCommand : IRequest<Guid>
     public string Description { get; set; } = null!;
     public decimal Price { get; set; }
     public DateTime? ExpiryDateTime { get; set; }
-    public byte[][]? Images { get; set; }
+    public string[]? ImageUrls { get; set; }
     public string City { get; set; } = null!;
     public string Street { get; set; } = null!;
     public string ZipCode { get; set; } = null!;

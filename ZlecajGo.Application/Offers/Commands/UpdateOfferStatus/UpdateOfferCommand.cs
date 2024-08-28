@@ -8,7 +8,7 @@ public class UpdateOfferCommand : IRequest<bool>
     public Guid OfferId { get; set; }
     public string? Description { get; set; }
     public decimal? Price { get; set; }
-    public byte[][]? Images { get; set; }
+    public string[]? ImageUrls { get; set; }
     public string? City { get; set; }
     public string? Street { get; set; }
     public string? ZipCode { get; set; }

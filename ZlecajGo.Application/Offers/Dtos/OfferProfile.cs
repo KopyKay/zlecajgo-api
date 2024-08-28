@@ -37,8 +37,8 @@ public class OfferProfile : Profile
                 opt.MapFrom((dto, og) => dto.Description ?? og.Description))
             .ForMember(o => o.Price, opt =>
                 opt.MapFrom((dto, og) => dto.Price ?? og.Price))
-            .ForMember(o => o.Images, opt =>
-                opt.MapFrom((dto, og) => dto.Images ?? og.Images))
+            .ForMember(o => o.ImageUrls, opt =>
+                opt.MapFrom((dto, og) => dto.ImageUrls ?? og.ImageUrls))
             .ForMember(o => o.Location, opt =>
                 opt.MapFrom((dto, og) => new Location
                 {
