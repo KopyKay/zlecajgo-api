@@ -1,4 +1,5 @@
 using Serilog;
+using Serilog.Core;
 using ZlecajGo.API.Extensions;
 using ZlecajGo.API.Middlewares;
 using ZlecajGo.Application.Extensions;
@@ -37,5 +38,7 @@ app.MapGroup("/api/identity")
 app.UseAuthorization();
 
 app.MapControllers();
+
+Log.Information("API started");
 
 app.Run();

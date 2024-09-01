@@ -1,10 +1,3 @@
-using ZlecajGo.Application.Categories.Dtos;
-using ZlecajGo.Application.Statuses.Dtos;
-using ZlecajGo.Application.Types.Dtos;
-using ZlecajGo.Application.Users.Dtos;
-using ZlecajGo.Domain.Entities;
-using Type = ZlecajGo.Domain.Entities.Type;
-
 namespace ZlecajGo.Application.Offers.Dtos;
 
 public class OfferDto
