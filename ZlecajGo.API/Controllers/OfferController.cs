@@ -7,12 +7,13 @@ using ZlecajGo.Application.Offers.Commands.UpdateOfferStatus;
 using ZlecajGo.Application.Offers.Dtos;
 using ZlecajGo.Application.Offers.Queries.GetOffer;
 using ZlecajGo.Application.Offers.Queries.GetOffers;
+using ZlecajGo.Infrastructure.Authorization;
 
 namespace ZlecajGo.API.Controllers;
 
 [ApiController]
 [Route("api/offers")]
-[Authorize]
+[Authorize(Policy = PolicyNames.HasProfileCompleted)]
 public class OfferController(IMediator mediator) : ControllerBase
 {
     [HttpGet]

@@ -4,12 +4,14 @@ using Microsoft.AspNetCore.Mvc;
 using ZlecajGo.Application.Statuses.Dtos;
 using ZlecajGo.Application.Statuses.Queries.GetStatus;
 using ZlecajGo.Application.Statuses.Queries.GetStatuses;
+using ZlecajGo.Infrastructure.Authorization;
 
 namespace ZlecajGo.API.Controllers;
 
 [ApiController]
 [Route("api/statuses")]
 [Authorize]
+[Authorize(Policy = PolicyNames.HasProfileCompleted)]
 public class StatusController(IMediator mediator) : ControllerBase
 {
     [HttpGet]
