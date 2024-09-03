@@ -84,48 +84,60 @@ internal class ZlecajGoSeeder(ZlecajGoContext dbContext, UserManager<User> userM
         var user1 = new User {
             FullName = "Jan Kowalski",
             BirthDate = new DateOnly(1990, 8, 12),
+            UserName = "janek90",
             Email = "j.kowalski@wp.pl",
-            PhoneNumber = "639371956"
+            PhoneNumber = "+48639371956",
+            IsProfileCompleted = true
         };
         user1.PasswordHash = userManager.PasswordHasher.HashPassword(user1, "Password1!");
         
         var user2 = new User {
             FullName = "Anna Nowak",
             BirthDate = new DateOnly(1985, 5, 23),
-            Email = "anna.Utcnowak@o2.pl",
-            PhoneNumber = "772916397"
+            UserName = "nowakowska85",
+            Email = "anna.nowak@o2.pl",
+            PhoneNumber = "+48772916397",
+            IsProfileCompleted = true
         };
         user2.PasswordHash = userManager.PasswordHasher.HashPassword(user2, "Password1!");
 
         var user3 = new User {
             FullName = "Piotr Wiśniewski",
             BirthDate = new DateOnly(1978, 2, 15),
+            UserName = "wiśnia78",
             Email = "piotrw78@wp.pl",
-            PhoneNumber = "826993797"
+            PhoneNumber = "+48826993797",
+            IsProfileCompleted = true
         };
         user3.PasswordHash = userManager.PasswordHasher.HashPassword(user3, "Password1!");
         
         var user4 = new User {
             FullName = "Katarzyna Dąbrowska",
             BirthDate = new DateOnly(2000, 11, 29),
+            UserName = "kasiadab",
             Email = "dabek00@gmail.com",
-            PhoneNumber = "648291739"
+            PhoneNumber = "+48648291739",
+            IsProfileCompleted = true
         };
         user4.PasswordHash = userManager.PasswordHasher.HashPassword(user4, "Password1!");
 
         var user5 = new User {
             FullName = "Marek Kowalczyk",
             BirthDate = new DateOnly(1995, 3, 7),
+            UserName = "mariok",
             Email = "marekkmail@onet.pl",
-            PhoneNumber = "739121239"
+            PhoneNumber = "+48739121239",
+            IsProfileCompleted = true
         };
         user5.PasswordHash = userManager.PasswordHasher.HashPassword(user5, "Password1!");
 
         var user6 = new User {
             FullName = "Karolina Zając",
             BirthDate = new DateOnly(1992, 12, 3),
+            UserName = "fenia",
             Email = "karoza92@outlook.com",
-            PhoneNumber = "826182881"
+            PhoneNumber = "+48826182881",
+            IsProfileCompleted = true
         };
         user6.PasswordHash = userManager.PasswordHasher.HashPassword(user6, "Password1!");
 
