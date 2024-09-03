@@ -8,9 +8,5 @@ public record CurrentUser
     string? FullName,
     string? PhoneNumber,
     DateOnly? BirthDate,
-    bool IsProfileCompleted,
-    IEnumerable<string> Roles
-)
-{
-    public bool IsInRole(string role) => Roles.Contains(role);
-}
+    bool IsProfileCompleted
+);

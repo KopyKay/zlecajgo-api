@@ -24,12 +24,11 @@ public class UserContext(IHttpContextAccessor httpContextAccessor) : IUserContex
         var email = user.FindFirst(c => c.Type == ClaimTypes.Email)!.Value;
         var userName = user.FindFirst(c => c.Type == "UserName")!.Value;
         var fullName = user.FindFirst(c => c.Type == "FullName")?.Value;
-        var phoneNumber = user.FindFirst(c => c.Type == ClaimTypes.MobilePhone)?.Value;
-        var birthDateString = user.FindFirst(c => c.Type == ClaimTypes.DateOfBirth)?.Value;
+        var phoneNumber = user.FindFirst(c => c.Type == "PhoneNumber")?.Value;
+        var birthDateString = user.FindFirst(c => c.Type == "BirthDate")?.Value;
         var birthDate = birthDateString is null ? (DateOnly?)null : DateOnly.ParseExact(birthDateString, "dd-MM-yyyy");
         var isProfileCompleted = bool.Parse(user.FindFirst(c => c.Type == "IsProfileCompleted")!.Value);
-        var roles = user.Claims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value);
         
-        return new CurrentUser(userId, email, userName, fullName, phoneNumber, birthDate, isProfileCompleted, roles);
+        return new CurrentUser(userId, email, userName, fullName, phoneNumber, birthDate, isProfileCompleted);
     }
 }

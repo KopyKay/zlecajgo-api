@@ -10,7 +10,6 @@ namespace ZlecajGo.API.Controllers;
 
 [ApiController]
 [Route("api/statuses")]
-[Authorize]
 [Authorize(Policy = PolicyNames.HasProfileCompleted)]
 public class StatusController(IMediator mediator) : ControllerBase
 {
