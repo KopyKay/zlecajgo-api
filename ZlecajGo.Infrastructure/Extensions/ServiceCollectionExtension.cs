@@ -29,7 +29,7 @@ public static class ServiceCollectionExtension
         
         services.AddAuthorizationBuilder()
             .AddPolicy(PolicyNames.HasProfileCompleted, builder => 
-                builder.RequireClaim(AppClaimTypes.IsProfileCompleted, "true"));
+                builder.RequireClaim(AppClaimTypes.IsProfileCompleted, "True"));
         
         services.AddScoped<IZlecajGoSeeder, ZlecajGoSeeder>();
         services.AddScoped<ICategoryRepository, CategoryRepository>();

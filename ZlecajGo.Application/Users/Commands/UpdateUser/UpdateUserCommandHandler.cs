@@ -29,7 +29,18 @@ public class UpdateUserCommandHandler
         dbUser.UserName = request.UserName ?? dbUser.UserName;
         dbUser.PhoneNumber = request.PhoneNumber ?? dbUser.PhoneNumber;
         dbUser.ProfilePictureUrl = request.ProfilePictureUrl ?? dbUser.ProfilePictureUrl;
-        dbUser.IsProfileCompleted = request.IsProfileCompleted ?? dbUser.IsProfileCompleted;
+
+        if (dbUser.IsProfileCompleted == false && dbUser is 
+            { 
+                FullName: not null, 
+                BirthDate: not null, 
+                Email: not null, 
+                UserName: not null, 
+                PhoneNumber: not null 
+            })
+        {
+            dbUser.IsProfileCompleted = true;
+        }
         
         await userStore.UpdateAsync(dbUser, cancellationToken);
     }

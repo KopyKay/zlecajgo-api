@@ -23,6 +23,12 @@ public class ZlecajGoUserClaimsPrincipalFactory
         if (user.FullName != null)
             id.AddClaim(new Claim(AppClaimTypes.FullName, user.FullName));
         
+        if (user.PhoneNumber != null)
+            id.AddClaim(new Claim(AppClaimTypes.PhoneNumber, user.PhoneNumber));
+        
+        if (user.BirthDate != null)
+            id.AddClaim(new Claim(AppClaimTypes.BirthDate, user.BirthDate.Value.ToString("dd-MM-yyyy")));
+        
         id.AddClaim(new Claim(AppClaimTypes.IsProfileCompleted, user.IsProfileCompleted.ToString()));
 
         return new ClaimsPrincipal(id);
