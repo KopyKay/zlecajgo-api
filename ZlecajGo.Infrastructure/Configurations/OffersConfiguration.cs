@@ -45,6 +45,9 @@ internal class OffersConfiguration : IEntityTypeConfiguration<Offer>
             .WithMany(s => s.Offers)
             .HasForeignKey(o => o.StatusId);
         
+        builder.Property(o => o.StatusId)
+            .HasDefaultValue(1);
+        
         builder.HasOne(o => o.Type)
             .WithMany(t => t.Offers)
             .HasForeignKey(o => o.TypeId);

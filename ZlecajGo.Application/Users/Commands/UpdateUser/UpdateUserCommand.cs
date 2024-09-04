@@ -10,5 +10,4 @@ public class UpdateUserCommand : IRequest
     public string? UserName { get; set; } = null!;
     public string? PhoneNumber { get; set; } = null!;
     public string? ProfilePictureUrl { get; set; }
-    public bool? IsProfileCompleted { get; set; }
 }

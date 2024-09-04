@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using MediatR;
 
 namespace ZlecajGo.Application.Offers.Commands.CreateOffer;
@@ -16,6 +17,7 @@ public class CreateOfferCommand : IRequest<Guid>
     public double Longitude { get; set; }
     public int TypeId { get; set; }
     public int CategoryId { get; set; }
-    public int StatusId { get; set; }
-    public string ProviderId { get; set; } = null!;
+    
+    [JsonIgnore]
+    public string? ProviderId { get; set; }
 }
