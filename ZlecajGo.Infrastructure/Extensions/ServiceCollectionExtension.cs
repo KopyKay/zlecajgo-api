@@ -32,7 +32,9 @@ public static class ServiceCollectionExtension
                 builder.RequireClaim(AppClaimTypes.IsProfileCompleted, "True"));
         
         services.AddScoped<IZlecajGoSeeder, ZlecajGoSeeder>();
+        
         services.AddScoped<ICategoryRepository, CategoryRepository>();
+        services.AddScoped<IOfferContractorRepository, OfferContractorRepository>();
         services.AddScoped<IOfferRepository, OfferRepository>();
         services.AddScoped<IStatusRepository, StatusRepository>();
         services.AddScoped<ITypeRepository, TypeRepository>();
