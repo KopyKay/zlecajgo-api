@@ -1,13 +1,9 @@
-using System.Diagnostics;
 using AutoMapper;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using ZlecajGo.Application.Offers.Dtos;
-using ZlecajGo.Domain.Entities;
-using ZlecajGo.Domain.Exceptions;
 using ZlecajGo.Domain.Repositories;
 
-namespace ZlecajGo.Application.Offers.Commands.UpdateOfferStatus;
+namespace ZlecajGo.Application.Offers.Commands.UpdateOffer;
 
 public class UpdateOfferCommandHandler
 (

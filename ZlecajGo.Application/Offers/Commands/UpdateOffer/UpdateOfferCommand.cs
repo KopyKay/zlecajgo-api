@@ -1,7 +1,6 @@
 using MediatR;
-using ZlecajGo.Application.Offers.Dtos;
 
-namespace ZlecajGo.Application.Offers.Commands.UpdateOfferStatus;
+namespace ZlecajGo.Application.Offers.Commands.UpdateOffer;
 
 public class UpdateOfferCommand : IRequest<bool>
 {

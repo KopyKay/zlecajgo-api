@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ZlecajGo.Application.Offers.Commands.CreateOffer;
 using ZlecajGo.Application.Offers.Commands.DeleteOffer;
-using ZlecajGo.Application.Offers.Commands.UpdateOfferStatus;
+using ZlecajGo.Application.Offers.Commands.UpdateOffer;
 using ZlecajGo.Application.Offers.Dtos;
 using ZlecajGo.Application.Offers.Queries.GetOffer;
 using ZlecajGo.Application.Offers.Queries.GetOffers;

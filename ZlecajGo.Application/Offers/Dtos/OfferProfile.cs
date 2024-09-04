@@ -1,6 +1,6 @@
 using AutoMapper;
 using ZlecajGo.Application.Offers.Commands.CreateOffer;
-using ZlecajGo.Application.Offers.Commands.UpdateOfferStatus;
+using ZlecajGo.Application.Offers.Commands.UpdateOffer;
 using ZlecajGo.Domain.Entities;
 
 namespace ZlecajGo.Application.Offers.Dtos;

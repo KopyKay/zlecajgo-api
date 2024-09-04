@@ -1,9 +1,8 @@
-using System.Diagnostics;
 using FluentValidation;
 using ZlecajGo.Domain.Entities;
 using ZlecajGo.Domain.Repositories;
 
-namespace ZlecajGo.Application.Offers.Commands.UpdateOfferStatus;
+namespace ZlecajGo.Application.Offers.Commands.UpdateOffer;
 
 public class UpdateOfferCommandValidator : AbstractValidator<UpdateOfferCommand>
 {
