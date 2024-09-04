@@ -9,5 +9,6 @@ public interface IOfferRepository
     Task<Offer?> GetOfferByIdWithTrackingAsync(Guid offerId);
     Task<Guid> CreateOfferAsync(Offer entity);
     Task DeleteOfferAsync(Offer entity);
+    Task<bool> HasOfferBeenPerformedAsync(Guid offerId);
     Task SaveChangesAsync();
 }

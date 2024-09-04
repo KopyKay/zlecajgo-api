@@ -19,6 +19,10 @@ public class DeleteOfferCommandHandler
 
         if (offer is null) return false;
         
+        var hasOfferBeenPerformed = await offerRepository.HasOfferBeenPerformedAsync(request.OfferId);
+
+        if (hasOfferBeenPerformed) return false;
+        
         await offerRepository.DeleteOfferAsync(offer);
         return true;
     }
