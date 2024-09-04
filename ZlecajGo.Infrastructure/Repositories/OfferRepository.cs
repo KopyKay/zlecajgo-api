@@ -50,7 +50,7 @@ internal class OfferRepository(ZlecajGoContext dbContext) : IOfferRepository
 
     public async Task<bool> HasOfferBeenPerformedAsync(Guid offerId)
     {
-       var result = await dbContext.ContractorOffer
+       var result = await dbContext.OfferContractors
             .AsNoTracking()
             .AnyAsync(co => co.Offer.Id == offerId);
 

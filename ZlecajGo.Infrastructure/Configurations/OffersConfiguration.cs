@@ -58,7 +58,7 @@ internal class OffersConfiguration : IEntityTypeConfiguration<Offer>
         
         builder.HasMany(o => o.Contractors)
             .WithMany(u => u.ContractedOffers)
-            .UsingEntity<ContractorOffer>(
+            .UsingEntity<OfferContractor>(
                 etb => etb.HasOne(co => co.Contractor)
                     .WithMany()
                     .HasForeignKey(co => co.ContractorId),

@@ -201,12 +201,12 @@ internal class ZlecajGoSeeder(ZlecajGoContext dbContext, UserManager<User> userM
             Provider = user3
         };
         user3.ProvidedOffers.Add(offer1);
-        var contractorOffer101 = new ContractorOffer {
+        var offerContractor101 = new OfferContractor {
             Contractor = user6,
             Offer = offer1,
             Status = cancelled
         };
-        var contractorOffer102 = new ContractorOffer {
+        var offerContractor102 = new OfferContractor {
             Contractor = user1,
             Offer = offer1,
             Status = completed
@@ -232,12 +232,12 @@ internal class ZlecajGoSeeder(ZlecajGoContext dbContext, UserManager<User> userM
             Provider = user3
         };
         user3.ProvidedOffers.Add(offer2);
-        var contractorOffer201 = new ContractorOffer {
+        var offerContractor201 = new OfferContractor {
             Contractor = user2,
             Offer = offer2,
             Status = cancelled
         };
-        var contractorOffer202 = new ContractorOffer {
+        var offerContractor202 = new OfferContractor {
             Contractor = user5,
             Offer = offer2,
             Status = planned
@@ -263,17 +263,17 @@ internal class ZlecajGoSeeder(ZlecajGoContext dbContext, UserManager<User> userM
             Provider = user4
         };
         user4.ProvidedOffers.Add(offer3);
-        var contractorOffer301 = new ContractorOffer {
+        var offerContractor301 = new OfferContractor {
             Contractor = user5,
             Offer = offer3,
             Status = cancelled
         };
-        var contractorOffer302 = new ContractorOffer {
+        var offerContractor302 = new OfferContractor {
             Contractor = user6,
             Offer = offer3,
             Status = cancelled
         };
-        var contractorOffer303 = new ContractorOffer {
+        var offerContractor303 = new OfferContractor {
             Contractor = user1,
             Offer = offer3,
             Status = completed
@@ -299,7 +299,7 @@ internal class ZlecajGoSeeder(ZlecajGoContext dbContext, UserManager<User> userM
             Provider = user4
         };
         user4.ProvidedOffers.Add(offer4);
-        var contractorOffer401 = new ContractorOffer {
+        var offerContractor401 = new OfferContractor {
             Contractor = user2,
             Offer = offer4,
             Status = planned
@@ -325,17 +325,17 @@ internal class ZlecajGoSeeder(ZlecajGoContext dbContext, UserManager<User> userM
             Provider = user5
         };
         user5.ProvidedOffers.Add(offer5);
-        var contractorOffer501 = new ContractorOffer {
+        var offerContractor501 = new OfferContractor {
             Contractor = user1,
             Offer = offer5,
             Status = cancelled
         };
-        var contractorOffer502 = new ContractorOffer {
+        var offerContractor502 = new OfferContractor {
             Contractor = user2,
             Offer = offer5,
             Status = cancelled
         };
-        var contractorOffer503 = new ContractorOffer {
+        var offerContractor503 = new OfferContractor {
             Contractor = user6,
             Offer = offer5,
             Status = cancelled
@@ -382,7 +382,7 @@ internal class ZlecajGoSeeder(ZlecajGoContext dbContext, UserManager<User> userM
             Provider = user6
         };
         user6.ProvidedOffers.Add(offer7);
-        var contractorOffer701 = new ContractorOffer {
+        var offerContractor701 = new OfferContractor {
             Contractor = user5,
             Offer = offer7,
             Status = cancelled
@@ -408,7 +408,7 @@ internal class ZlecajGoSeeder(ZlecajGoContext dbContext, UserManager<User> userM
             Provider = user2
         };
         user2.ProvidedOffers.Add(offer8);
-        var contractorOffer801 = new ContractorOffer {
+        var offerContractor801 = new OfferContractor {
             Contractor = user3,
             Offer = offer8,
             Status = cancelled
@@ -435,18 +435,18 @@ internal class ZlecajGoSeeder(ZlecajGoContext dbContext, UserManager<User> userM
         };
         user1.ProvidedOffers.Add(offer9);
         
-        IEnumerable<ContractorOffer> contractorOffers = 
+        IEnumerable<OfferContractor> offerContractors = 
         [
-            contractorOffer101, contractorOffer102,
-            contractorOffer201, contractorOffer202,
-            contractorOffer301, contractorOffer302, contractorOffer303,
-            contractorOffer401,
-            contractorOffer501, contractorOffer502, contractorOffer503,
-            contractorOffer701,
-            contractorOffer801
+            offerContractor101, offerContractor102,
+            offerContractor201, offerContractor202,
+            offerContractor301, offerContractor302, offerContractor303,
+            offerContractor401,
+            offerContractor501, offerContractor502, offerContractor503,
+            offerContractor701,
+            offerContractor801
         ];
 
-        await dbContext.ContractorOffer.AddRangeAsync(contractorOffers);
+        await dbContext.OfferContractors.AddRangeAsync(offerContractors);
         await dbContext.SaveChangesAsync();
     }
 }
