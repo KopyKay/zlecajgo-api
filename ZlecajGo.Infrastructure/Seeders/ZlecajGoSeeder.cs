@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Identity;
+using ZlecajGo.Domain.Constants;
 using ZlecajGo.Domain.Entities;
 using ZlecajGo.Infrastructure.Persistence;
 using Type = ZlecajGo.Domain.Entities.Type;
@@ -13,18 +14,18 @@ internal class ZlecajGoSeeder(ZlecajGoContext dbContext, UserManager<User> userM
         
         #region Categories, Statuses, Types
         
-            var electrician = new Category { Name = "Elektryk" };
-            var handyman = new Category { Name = "Złota rączka" };
-            var furnitureAssembly = new Category { Name = "Montaż mebli" };
-            var cleaning = new Category { Name = "Sprzątanie" };
-            var humanCare = new Category { Name = "Opieka" };
-            var renovation = new Category { Name = "Remont" };
-            var mechanic = new Category { Name = "Mechanik" };
-            var garden = new Category { Name = "Ogród" };
-            var plumber = new Category { Name = "Hydraulik" };
-            var transport = new Category { Name = "Transport" };
-            var itSpec = new Category { Name = "Informatyk" };
-            var other = new Category { Name = "Pozostałe" };
+            var electrician = new Category { Name = AppCategories.Electrician.Name };
+            var handyman = new Category { Name = AppCategories.Handyman.Name };
+            var furnitureAssembly = new Category { Name = AppCategories.FurnitureAssembly.Name };
+            var cleaning = new Category { Name = AppCategories.Cleaning.Name };
+            var humanCare = new Category { Name = AppCategories.HumanCare.Name };
+            var renovation = new Category { Name = AppCategories.Renovation.Name };
+            var mechanic = new Category { Name = AppCategories.Mechanic.Name };
+            var garden = new Category { Name = AppCategories.Garden.Name };
+            var plumber = new Category { Name = AppCategories.Plumber.Name };
+            var transport = new Category { Name = AppCategories.Transport.Name };
+            var itSpec = new Category { Name = AppCategories.ItSpecialist.Name };
+            var other = new Category { Name = AppCategories.Other.Name };
                 
             IEnumerable<Category> categories =
             [
@@ -45,13 +46,13 @@ internal class ZlecajGoSeeder(ZlecajGoContext dbContext, UserManager<User> userM
             await dbContext.Categories.AddRangeAsync(categories);
             await dbContext.SaveChangesAsync();
             
-            var pending = new Status { Name = "Oczekujące" };
-            var occupied = new Status { Name = "Zajęte" };
-            var ended = new Status { Name = "Zakończone" };
-            var planned = new Status { Name = "Zaplanowane" };
-            var ongoing = new Status { Name = "Trwające" };
-            var cancelled = new Status { Name = "Anulowane" };
-            var completed = new Status { Name = "Ukończone" };
+            var pending = new Status { Name = AppStatuses.Pending.Name };
+            var occupied = new Status { Name = AppStatuses.Occupied.Name };
+            var ended = new Status { Name = AppStatuses.Ended.Name };
+            var planned = new Status { Name = AppStatuses.Planned.Name };
+            var ongoing = new Status { Name = AppStatuses.Ongoing.Name };
+            var cancelled = new Status { Name = AppStatuses.Cancelled.Name };
+            var completed = new Status { Name = AppStatuses.Completed.Name };
                 
             IEnumerable<Status> statuses = 
             [
@@ -67,8 +68,8 @@ internal class ZlecajGoSeeder(ZlecajGoContext dbContext, UserManager<User> userM
             await dbContext.Statuses.AddRangeAsync(statuses);
             await dbContext.SaveChangesAsync();
             
-            var task = new Type { Name = "Zlecenie" };
-            var service = new Type { Name = "Usługa" };
+            var task = new Type { Name = AppTypes.Task.Name };
+            var service = new Type { Name = AppTypes.Service.Name };
 
             IEnumerable<Type> types =
             [
@@ -85,8 +86,12 @@ internal class ZlecajGoSeeder(ZlecajGoContext dbContext, UserManager<User> userM
             FullName = "Jan Kowalski",
             BirthDate = new DateOnly(1990, 8, 12),
             UserName = "janek90",
+            NormalizedUserName = "JANEK90",
             Email = "j.kowalski@wp.pl",
+            NormalizedEmail = "J.KOWALSKI@WP.PL",
+            EmailConfirmed = true,
             PhoneNumber = "+48639371956",
+            PhoneNumberConfirmed = true,
             IsProfileCompleted = true
         };
         user1.PasswordHash = userManager.PasswordHasher.HashPassword(user1, "Password1!");
@@ -95,8 +100,12 @@ internal class ZlecajGoSeeder(ZlecajGoContext dbContext, UserManager<User> userM
             FullName = "Anna Nowak",
             BirthDate = new DateOnly(1985, 5, 23),
             UserName = "nowakowska85",
+            NormalizedUserName = "NOWAKOWSKA85",
             Email = "anna.nowak@o2.pl",
+            NormalizedEmail = "ANNA.NOWAK@O2.PL",
+            EmailConfirmed = true,
             PhoneNumber = "+48772916397",
+            PhoneNumberConfirmed = true,
             IsProfileCompleted = true
         };
         user2.PasswordHash = userManager.PasswordHasher.HashPassword(user2, "Password1!");
@@ -105,8 +114,12 @@ internal class ZlecajGoSeeder(ZlecajGoContext dbContext, UserManager<User> userM
             FullName = "Piotr Wiśniewski",
             BirthDate = new DateOnly(1978, 2, 15),
             UserName = "wiśnia78",
+            NormalizedUserName = "WIŚNIA78",
             Email = "piotrw78@wp.pl",
+            NormalizedEmail = "PIOTRW78@WP.PL",
+            EmailConfirmed = true,
             PhoneNumber = "+48826993797",
+            PhoneNumberConfirmed = true,
             IsProfileCompleted = true
         };
         user3.PasswordHash = userManager.PasswordHasher.HashPassword(user3, "Password1!");
@@ -115,8 +128,12 @@ internal class ZlecajGoSeeder(ZlecajGoContext dbContext, UserManager<User> userM
             FullName = "Katarzyna Dąbrowska",
             BirthDate = new DateOnly(2000, 11, 29),
             UserName = "kasiadab",
+            NormalizedUserName = "KASIADAB",
             Email = "dabek00@gmail.com",
+            NormalizedEmail = "DABEK00@GMAIL.COM",
+            EmailConfirmed = true,
             PhoneNumber = "+48648291739",
+            PhoneNumberConfirmed = true,
             IsProfileCompleted = true
         };
         user4.PasswordHash = userManager.PasswordHasher.HashPassword(user4, "Password1!");
@@ -125,8 +142,12 @@ internal class ZlecajGoSeeder(ZlecajGoContext dbContext, UserManager<User> userM
             FullName = "Marek Kowalczyk",
             BirthDate = new DateOnly(1995, 3, 7),
             UserName = "mariok",
+            NormalizedUserName = "MARIOK",
             Email = "marekkmail@onet.pl",
+            NormalizedEmail = "MAREKMAIL@ONET.PL",
+            EmailConfirmed = true,
             PhoneNumber = "+48739121239",
+            PhoneNumberConfirmed = true,
             IsProfileCompleted = true
         };
         user5.PasswordHash = userManager.PasswordHasher.HashPassword(user5, "Password1!");
@@ -135,8 +156,12 @@ internal class ZlecajGoSeeder(ZlecajGoContext dbContext, UserManager<User> userM
             FullName = "Karolina Zając",
             BirthDate = new DateOnly(1992, 12, 3),
             UserName = "fenia",
+            NormalizedUserName = "FENIA",
             Email = "karoza92@outlook.com",
+            NormalizedEmail = "KAROZA92@OUTLOOK.COM",
+            EmailConfirmed = true,
             PhoneNumber = "+48826182881",
+            PhoneNumberConfirmed = true,
             IsProfileCompleted = true
         };
         user6.PasswordHash = userManager.PasswordHasher.HashPassword(user6, "Password1!");

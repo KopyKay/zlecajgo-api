@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using ZlecajGo.Application.Categories.Dtos;
 using ZlecajGo.Application.Categories.Queries.GetCategories;
 using ZlecajGo.Application.Categories.Queries.GetCategory;
-using ZlecajGo.Infrastructure.Authorization;
+using ZlecajGo.Domain.Constants;
 
 namespace ZlecajGo.API.Controllers;
 

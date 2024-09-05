@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using ZlecajGo.Application.Types.Dtos;
 using ZlecajGo.Application.Types.Queries.GetType;
 using ZlecajGo.Application.Types.Queries.GetTypes;
-using ZlecajGo.Infrastructure.Authorization;
+using ZlecajGo.Domain.Constants;
 
 namespace ZlecajGo.API.Controllers;
 

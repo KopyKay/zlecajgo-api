@@ -7,7 +7,7 @@ using ZlecajGo.Application.Offers.Commands.UpdateOffer;
 using ZlecajGo.Application.Offers.Dtos;
 using ZlecajGo.Application.Offers.Queries.GetOffer;
 using ZlecajGo.Application.Offers.Queries.GetOffers;
-using ZlecajGo.Infrastructure.Authorization;
+using ZlecajGo.Domain.Constants;
 
 namespace ZlecajGo.API.Controllers;
 

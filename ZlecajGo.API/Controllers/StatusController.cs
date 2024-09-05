@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using ZlecajGo.Application.Statuses.Dtos;
 using ZlecajGo.Application.Statuses.Queries.GetStatus;
 using ZlecajGo.Application.Statuses.Queries.GetStatuses;
-using ZlecajGo.Infrastructure.Authorization;
+using ZlecajGo.Domain.Constants;
 
 namespace ZlecajGo.API.Controllers;
 

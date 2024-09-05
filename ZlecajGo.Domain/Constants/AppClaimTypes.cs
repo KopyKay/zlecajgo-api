@@ -1,9 +1,4 @@
-namespace ZlecajGo.Infrastructure.Authorization;
-
-public static class PolicyNames
-{
-    public const string HasProfileCompleted = "HasProfileCompleted";
-}
+namespace ZlecajGo.Domain.Constants;
 
 public static class AppClaimTypes
 {

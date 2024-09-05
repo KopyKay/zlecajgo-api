@@ -6,7 +6,7 @@ using ZlecajGo.Application.OfferContractors.Commands.UpdateContractedOffer;
 using ZlecajGo.Application.OfferContractors.Dtos;
 using ZlecajGo.Application.OfferContractors.Queries.GetContractedOffer;
 using ZlecajGo.Application.OfferContractors.Queries.GetContractedOffers;
-using ZlecajGo.Infrastructure.Authorization;
+using ZlecajGo.Domain.Constants;
 
 namespace ZlecajGo.API.Controllers;
 
