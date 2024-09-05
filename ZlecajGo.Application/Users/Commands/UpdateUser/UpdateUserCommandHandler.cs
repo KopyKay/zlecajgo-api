@@ -18,7 +18,7 @@ public class UpdateUserCommandHandler
     {
         var user = userContext.GetCurrentUser();
         
-        logger.LogInformation("Updating user with id {UserId}", user!.Id);
+        logger.LogInformation("Updating user with id [{UserId}]", user!.Id);
         
         var dbUser = await userStore.FindByIdAsync(user.Id, cancellationToken)
             ?? throw new NotFoundException(nameof(User), user.Id);

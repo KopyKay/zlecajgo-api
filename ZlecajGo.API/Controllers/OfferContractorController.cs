@@ -32,7 +32,7 @@ public class OfferContractorController(IMediator mediator) : ControllerBase
         return Ok(contractedOffer);
     }
     
-    [HttpPost("{offerId:guid}")]
+    [HttpPost("contract/{offerId:guid}")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status409Conflict)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]

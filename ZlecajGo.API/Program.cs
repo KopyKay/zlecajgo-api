@@ -1,5 +1,4 @@
 using Serilog;
-using Serilog.Core;
 using ZlecajGo.API.Extensions;
 using ZlecajGo.API.Middlewares;
 using ZlecajGo.Application.Extensions;

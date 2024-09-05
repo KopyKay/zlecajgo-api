@@ -31,7 +31,7 @@ public class UserController(IMediator mediator) : ControllerBase
         return Ok(user);
     }
     
-    [HttpPatch]
+    [HttpPatch("update")]
     [AllowAnonymous]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]

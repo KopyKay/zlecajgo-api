@@ -1,5 +1,4 @@
 using FluentValidation;
-using ZlecajGo.Domain.Entities;
 
 namespace ZlecajGo.Application.Users.Commands.UpdateUser;
 

@@ -2,7 +2,6 @@ using AutoMapper;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using ZlecajGo.Application.Categories.Dtos;
-using ZlecajGo.Domain.Entities;
 using ZlecajGo.Domain.Repositories;
 
 namespace ZlecajGo.Application.Categories.Queries.GetCategories;

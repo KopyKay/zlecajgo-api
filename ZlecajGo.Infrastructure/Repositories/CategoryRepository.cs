@@ -9,7 +9,9 @@ internal class CategoryRepository(ZlecajGoContext dbContext) : ICategoryReposito
 {
     public async Task<IEnumerable<Category>> GetCategoriesAsync()
     {
-        var categories = await dbContext.Categories.ToListAsync();
+        var categories = await dbContext.Categories
+            .AsNoTracking()
+            .ToListAsync();
 
         return categories;
     }

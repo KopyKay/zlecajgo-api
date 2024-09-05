@@ -18,7 +18,7 @@ public class GetTypeQueryHandler
 {
     public async Task<TypeDto> Handle(GetTypeQuery request, CancellationToken cancellationToken)
     {
-        logger.LogInformation("Getting type with id: {TypeId}", request.TypeId);
+        logger.LogInformation("Getting type with id [{TypeId}]", request.TypeId);
 
         var type = await typeRepository.GetTypeByIdAsync(request.TypeId)
             ?? throw new NotFoundException(nameof(Type), request.TypeId.ToString());

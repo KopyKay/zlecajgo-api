@@ -25,7 +25,7 @@ public class ContractUserWithOfferCommandHandler
         var contractorId = request.ContractorId;
         var offerId = request.OfferId;
         
-        logger.LogInformation("Contracting user with id: [{ContractorId}] with offer with id: [{OfferId}]",
+        logger.LogInformation("Contracting user with id [{ContractorId}] with offer with id [{OfferId}]",
             contractorId, offerId);
         
         _ = await offerRepository.GetOfferByIdAsync(offerId)

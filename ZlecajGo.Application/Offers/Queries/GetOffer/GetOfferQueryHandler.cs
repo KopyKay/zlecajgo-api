@@ -18,7 +18,7 @@ public class GetOfferQueryHandler
 {
     public async Task<OfferDto> Handle(GetOfferQuery request, CancellationToken cancellationToken)
     {
-        logger.LogInformation("Getting offer with id: {OfferId}", request.OfferId);
+        logger.LogInformation("Getting offer with id [{OfferId}]", request.OfferId);
         
         var offer = await offerRepository.GetOfferByIdAsync(request.OfferId)
             ?? throw new NotFoundException(nameof(Offer), request.OfferId.ToString());

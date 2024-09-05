@@ -1,9 +1,11 @@
+using System.Text.Json.Serialization;
 using MediatR;
 
 namespace ZlecajGo.Application.Offers.Commands.UpdateOffer;
 
 public class UpdateOfferCommand : IRequest<bool>
 {
+    [JsonIgnore]
     public Guid OfferId { get; set; }
     public string? Description { get; set; }
     public decimal? Price { get; set; }

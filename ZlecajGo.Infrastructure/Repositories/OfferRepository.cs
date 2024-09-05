@@ -2,7 +2,6 @@ using Microsoft.EntityFrameworkCore;
 using ZlecajGo.Domain.Entities;
 using ZlecajGo.Domain.Repositories;
 using ZlecajGo.Infrastructure.Persistence;
-using Type = ZlecajGo.Domain.Entities.Type;
 
 namespace ZlecajGo.Infrastructure.Repositories;
 
@@ -46,15 +45,6 @@ internal class OfferRepository(ZlecajGoContext dbContext) : IOfferRepository
     {
         dbContext.Offers.Remove(entity);
         await SaveChangesAsync();
-    }
-
-    public async Task<bool> HasOfferBeenPerformedAsync(Guid offerId)
-    {
-       var result = await dbContext.OfferContractors
-            .AsNoTracking()
-            .AnyAsync(co => co.Offer.Id == offerId);
-
-       return result;
     }
 
     public async Task SaveChangesAsync() => await dbContext.SaveChangesAsync();

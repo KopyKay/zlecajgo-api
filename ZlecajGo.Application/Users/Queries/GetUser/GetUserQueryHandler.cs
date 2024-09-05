@@ -1,7 +1,6 @@
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using ZlecajGo.Application.Users.Dtos;
 using ZlecajGo.Domain.Entities;
@@ -19,7 +18,7 @@ public class GetUserQueryHandler
 {
     public async Task<UserDto?> Handle(GetUserQuery request, CancellationToken cancellationToken)
     {
-        logger.LogInformation("Getting user with id: {UserId}", request.UserId);
+        logger.LogInformation("Getting user with id [{UserId}]", request.UserId);
         
         var user = await userManager.FindByIdAsync(request.UserId)
             ?? throw new NotFoundException(nameof(User), request.UserId);

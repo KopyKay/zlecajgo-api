@@ -29,7 +29,7 @@ public class UpdateOfferCommandValidator : AbstractValidator<UpdateOfferCommand>
         
         RuleFor(command => command.StatusId)
             .Must(StatusIdExists)
-            .WithMessage("Invalid status id.");
+            .WithMessage("Nieprawidłowy identyfikator statusu!");
     }
     
     private bool StatusIdExists(int? statusId)

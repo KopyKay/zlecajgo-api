@@ -47,6 +47,15 @@ internal class OfferContractorRepository(ZlecajGoContext dbContext) : IOfferCont
 
         return isOccupied;
     }
+    
+    public async Task<bool> HasOfferBeenPerformedAsync(Guid offerId)
+    {
+        var result = await dbContext.OfferContractors
+            .AsNoTracking()
+            .AnyAsync(co => co.Offer.Id == offerId);
+
+        return result;
+    }
 
     public async Task SaveChangesAsync() => await dbContext.SaveChangesAsync();
 }

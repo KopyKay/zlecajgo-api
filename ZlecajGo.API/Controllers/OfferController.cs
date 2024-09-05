@@ -33,7 +33,7 @@ public class OfferController(IMediator mediator) : ControllerBase
         return Ok(offer);
     }
 
-    [HttpPost]
+    [HttpPost("create")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     public async Task<IActionResult> CreateOffer([FromBody] CreateOfferCommand command)
     {
@@ -48,10 +48,7 @@ public class OfferController(IMediator mediator) : ControllerBase
     {
         command.OfferId = offerId;
         var isUpdated = await mediator.Send(command);
-
-        if (isUpdated) return NoContent();
-        
-        return NotFound();
+        return isUpdated ? NoContent() : NotFound();
     }
     
     [HttpDelete("{offerId:guid}")]
@@ -60,9 +57,6 @@ public class OfferController(IMediator mediator) : ControllerBase
     public async Task<IActionResult> DeleteOffer([FromRoute] Guid offerId)
     {
         var isDeleted = await mediator.Send(new DeleteOfferCommand(offerId));
-
-        if (isDeleted) return NoContent();
-        
-        return NotFound();
+        return isDeleted ? NoContent() : NotFound();
     }
 }

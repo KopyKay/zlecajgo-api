@@ -1,5 +1,4 @@
 using FluentValidation;
-using MediatR;
 
 namespace ZlecajGo.Application.Offers.Commands.CreateOffer;
 

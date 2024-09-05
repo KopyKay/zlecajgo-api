@@ -9,5 +9,6 @@ public interface IOfferContractorRepository
     Task<OfferContractor?> GetContractedOfferByIdWithTrackingAsync(Guid offerId, string contractorId);
     Task ContractUserToOfferAsync(OfferContractor entity);
     Task<bool> CheckIsContractedOfferOccupiedAsync(Guid offerId);
+    Task<bool> HasOfferBeenPerformedAsync(Guid offerId);
     Task SaveChangesAsync();
 }

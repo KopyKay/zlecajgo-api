@@ -25,7 +25,7 @@ public class UpdateContractedOfferCommandHandler
         var contractorId = request.ContractorId;
         var offerId = request.OfferId;
         
-        logger.LogInformation("Updating contracted offer with id: [{OfferId}] for contractor with id: [{ContractorId}]",
+        logger.LogInformation("Updating contracted offer with id [{OfferId}] for contractor with id [{ContractorId}]",
             offerId, contractorId);
 
         _ = await offerRepository.GetOfferByIdAsync(offerId)

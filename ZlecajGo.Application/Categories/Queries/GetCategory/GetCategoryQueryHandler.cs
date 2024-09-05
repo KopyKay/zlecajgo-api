@@ -18,7 +18,7 @@ public class GetCategoryQueryHandler
 {
     public async Task<CategoryDto> Handle(GetCategoryQuery request, CancellationToken cancellationToken)
     {
-        logger.LogInformation("Getting category with id {CategoryId}", request.CategoryId);
+        logger.LogInformation("Getting category with id [{CategoryId}]", request.CategoryId);
 
         var category = await categoryRepository.GetCategoryByIdAsync(request.CategoryId)
             ?? throw new NotFoundException(nameof(Category), request.CategoryId.ToString());

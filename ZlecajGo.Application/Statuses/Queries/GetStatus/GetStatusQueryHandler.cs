@@ -18,7 +18,7 @@ public class GetStatusQueryHandler
 {
     public async Task<StatusDto> Handle(GetStatusQuery request, CancellationToken cancellationToken)
     {
-        logger.LogInformation("Getting status with id: {StatusId}", request.StatusId);
+        logger.LogInformation("Getting status with id [{StatusId}]", request.StatusId);
         
         var status = await statusRepository.GetStatusByIdAsync(request.StatusId)
             ?? throw new NotFoundException(nameof(Status), request.StatusId.ToString());
