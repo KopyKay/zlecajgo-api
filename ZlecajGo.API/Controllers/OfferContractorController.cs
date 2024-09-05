@@ -42,12 +42,11 @@ public class OfferContractorController(IMediator mediator) : ControllerBase
         return Created();
     }
 
-    [HttpPatch("{offerId:guid}")]
+    [HttpPatch("update")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> UpdateContractedOffer([FromRoute] Guid offerId, [FromBody] UpdateContractedOfferCommand command)
+    public async Task<IActionResult> UpdateContractedOffer([FromBody] UpdateContractedOfferCommand command)
     {
-        command.OfferId = offerId;
         await mediator.Send(command);
         return NoContent();
     }

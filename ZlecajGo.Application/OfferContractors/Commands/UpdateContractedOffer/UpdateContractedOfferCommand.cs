@@ -5,9 +5,7 @@ namespace ZlecajGo.Application.OfferContractors.Commands.UpdateContractedOffer;
 
 public class UpdateContractedOfferCommand: IRequest
 {
-    [JsonIgnore]
     public Guid OfferId { get; set; }
-    [JsonIgnore]
-    public string? ContractorId { get; set; }
+    public string ContractorId { get; set; } = null!;
     public int StatusId { get; set; }
 }
