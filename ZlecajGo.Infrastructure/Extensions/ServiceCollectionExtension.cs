@@ -36,6 +36,7 @@ public static class ServiceCollectionExtension
         services.AddScoped<ICategoryRepository, CategoryRepository>();
         services.AddScoped<IOfferContractorRepository, OfferContractorRepository>();
         services.AddScoped<IOfferRepository, OfferRepository>();
+        services.AddScoped<IReviewRepository, ReviewRepository>();
         services.AddScoped<IStatusRepository, StatusRepository>();
         services.AddScoped<ITypeRepository, TypeRepository>();
     }
