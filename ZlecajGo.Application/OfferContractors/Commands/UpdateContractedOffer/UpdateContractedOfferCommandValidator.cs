@@ -14,7 +14,7 @@ public class UpdateContractedOfferCommandValidator : AbstractValidator<UpdateCon
         
         RuleFor(command => command.StatusId)
             .Must(StatusIdExists)
-            .WithMessage("Nieprawidłowy identyfikator statusu!");
+            .WithMessage("Invalid status identifier!");
     }
     
     private bool StatusIdExists(int statusId)

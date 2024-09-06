@@ -9,8 +9,7 @@ namespace ZlecajGo.Application.Offers.Commands.DeleteOffer;
 public class DeleteOfferCommandHandler
 (
     ILogger<DeleteOfferCommandHandler> logger,
-    IOfferRepository offerRepository,
-    IOfferContractorRepository offerContractorRepository
+    IOfferRepository offerRepository
 )    
 : IRequestHandler<DeleteOfferCommand, bool>
 {
@@ -21,11 +20,7 @@ public class DeleteOfferCommandHandler
         var offer = await offerRepository.GetOfferByIdAsync(request.OfferId)
             ?? throw new NotFoundException(nameof(Offer), request.OfferId.ToString());
         
-        var hasOfferBeenPerformed = await offerContractorRepository.HasOfferBeenPerformedAsync(request.OfferId);
-
-        if (hasOfferBeenPerformed) return false;
-        
-        await offerRepository.DeleteOfferAsync(offer);
-        return true;
+        var result = await offerRepository.DeleteOfferAsync(offer);
+        return result;
     }
 }

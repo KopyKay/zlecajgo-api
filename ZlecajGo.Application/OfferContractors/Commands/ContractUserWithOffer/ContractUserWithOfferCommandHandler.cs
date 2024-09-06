@@ -16,9 +16,9 @@ public class ContractUserWithOfferCommandHandler
     IUserContext userContext,
     IMapper mapper
 )        
-: IRequestHandler<ContractUserWithOfferCommand>
+: IRequestHandler<ContractUserWithOfferCommand, bool>
 {
-    public async Task Handle(ContractUserWithOfferCommand request, CancellationToken cancellationToken)
+    public async Task<bool> Handle(ContractUserWithOfferCommand request, CancellationToken cancellationToken)
     {
         var user = userContext.GetCurrentUser();
         request.ContractorId = user!.Id;
@@ -31,12 +31,10 @@ public class ContractUserWithOfferCommandHandler
         _ = await offerRepository.GetOfferByIdAsync(offerId)
             ?? throw new NotFoundException(nameof(Offer), offerId.ToString());
         
-        var isOccupied = await offerContractorRepository.CheckIsContractedOfferOccupiedAsync(offerId);
-        
-        if (isOccupied) throw new OfferOccupiedException(offerId, contractorId);
-        
         var contractedOffer = mapper.Map<OfferContractor>(request);
         
-        await offerContractorRepository.ContractUserToOfferAsync(contractedOffer);
+        var result = await offerContractorRepository.ContractUserToOfferAsync(contractedOffer);
+
+        return result;
     }
 }

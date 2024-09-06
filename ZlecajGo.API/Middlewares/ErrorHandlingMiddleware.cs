@@ -16,12 +16,6 @@ public class ErrorHandlingMiddleware(ILogger<ErrorHandlingMiddleware> logger) : 
             context.Response.StatusCode = StatusCodes.Status404NotFound;
             await context.Response.WriteAsync(ex.Message);
         }
-        catch (OfferOccupiedException ex)
-        {
-            logger.LogWarning(ex.Message);
-            context.Response.StatusCode = StatusCodes.Status409Conflict;
-            await context.Response.WriteAsync(ex.Message);
-        }
         catch (Exception ex)
         {
             logger.LogError(ex, ex.Message);

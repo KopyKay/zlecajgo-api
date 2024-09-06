@@ -7,8 +7,6 @@ public interface IOfferContractorRepository
     Task<IEnumerable<OfferContractor>> GetContractedOffersAsync();
     Task<OfferContractor?> GetContractedOfferByIdAsync(Guid offerId, string contractorId);
     Task<OfferContractor?> GetContractedOfferByIdWithTrackingAsync(Guid offerId, string contractorId);
-    Task ContractUserToOfferAsync(OfferContractor entity);
-    Task<bool> CheckIsContractedOfferOccupiedAsync(Guid offerId);
-    Task<bool> HasOfferBeenPerformedAsync(Guid offerId);
+    Task<bool> ContractUserToOfferAsync(OfferContractor entity);
     Task SaveChangesAsync();
 }

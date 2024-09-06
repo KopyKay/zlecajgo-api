@@ -8,28 +8,28 @@ public class UpdateUserCommandValidator : AbstractValidator<UpdateUserCommand>
     {
         RuleFor(command => command.FullName)
             .MinimumLength(3)
-            .WithMessage("Imię i nazwisko nie może być krótsze niż 3 znaki.")
+            .WithMessage("Name with surname must be at least 3 characters long.")
             .MaximumLength(100)
-            .WithMessage("Imię i nazwisko nie może być dłuższe niż 100 znaków.");
+            .WithMessage("Name with surname must not exceed 100 characters.");
         
         RuleFor(command => command.BirthDate)
             .LessThan(DateOnly.FromDateTime(DateTime.Today.AddYears(-18)))
-            .WithMessage("Aby się zarejestrować musisz mieć ukończone 18 lat.");
+            .WithMessage("You must be at least 18 years old to register.");
 
         RuleFor(command => command.PhoneNumber)
             .Matches(@"^\+48[4-9]\d{8}$")
-            .WithMessage("Niepoprawny numer telefonu.");
+            .WithMessage("Invalid phone number. Correct format: +48XXXXXXXXX. First digit after +48 must be between 4 and 9.");
         
         RuleFor(command => command.Email)
             .EmailAddress()
-            .WithMessage("Niepoprawny adres email.");
+            .WithMessage("Invalid email address.");
 
         RuleFor(command => command.UserName)
             .MinimumLength(3)
-            .WithMessage("Nazwa użytkownika nie może być krótsza niż 3 znaki.")
+            .WithMessage("Username must be at least 3 characters long.")
             .MaximumLength(30)
-            .WithMessage("Nazwa użytkownika nie może być dłuższa niż 30 znaków.")
+            .WithMessage("Username must not exceed 30 characters.")
             .Matches(@"^\S*$")
-            .WithMessage("Nazwa użytkownika nie może zawierać spacji.");
+            .WithMessage("Username must not contain white spaces.");
     }
 }

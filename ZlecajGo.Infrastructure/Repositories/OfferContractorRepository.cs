@@ -33,13 +33,20 @@ internal class OfferContractorRepository(ZlecajGoContext dbContext) : IOfferCont
         return offerContractor;
     }
 
-    public async Task ContractUserToOfferAsync(OfferContractor entity)
+    public async Task<bool> ContractUserToOfferAsync(OfferContractor entity)
     {
+        if (await CheckIsContractedOfferOccupiedAsync(entity.OfferId))
+            return false;
+        
         await dbContext.OfferContractors.AddAsync(entity);
         await SaveChangesAsync();
-    }
 
-    public async Task<bool> CheckIsContractedOfferOccupiedAsync(Guid offerId)
+        return true;
+    }
+    
+    public async Task SaveChangesAsync() => await dbContext.SaveChangesAsync();
+    
+    private async Task<bool> CheckIsContractedOfferOccupiedAsync(Guid offerId)
     {
         var isOccupied = await dbContext.OfferContractors
             .AsNoTracking()
@@ -47,15 +54,4 @@ internal class OfferContractorRepository(ZlecajGoContext dbContext) : IOfferCont
 
         return isOccupied;
     }
-    
-    public async Task<bool> HasOfferBeenPerformedAsync(Guid offerId)
-    {
-        var result = await dbContext.OfferContractors
-            .AsNoTracking()
-            .AnyAsync(co => co.Offer.Id == offerId);
-
-        return result;
-    }
-
-    public async Task SaveChangesAsync() => await dbContext.SaveChangesAsync();
 }

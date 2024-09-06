@@ -41,11 +41,25 @@ internal class OfferRepository(ZlecajGoContext dbContext) : IOfferRepository
         return entity.Id;
     }
 
-    public async Task DeleteOfferAsync(Offer entity)
+    public async Task<bool> DeleteOfferAsync(Offer entity)
     {
+        if (await HasOfferBeenPerformedAsync(entity.Id)) 
+            return false;
+        
         dbContext.Offers.Remove(entity);
         await SaveChangesAsync();
+
+        return true;
     }
 
     public async Task SaveChangesAsync() => await dbContext.SaveChangesAsync();
+    
+    private async Task<bool> HasOfferBeenPerformedAsync(Guid offerId)
+    {
+        var result = await dbContext.OfferContractors
+            .AsNoTracking()
+            .AnyAsync(co => co.Offer.Id == offerId);
+
+        return result;
+    }
 }

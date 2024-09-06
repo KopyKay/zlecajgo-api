@@ -16,6 +16,9 @@ namespace ZlecajGo.API.Controllers;
 [Authorize(Policy = PolicyNames.HasProfileCompleted)]
 public class OfferController(IMediator mediator) : ControllerBase
 {
+    // TODO: Split the UPDATE of an offer into a general update and a status update.
+    // The general update can only be done by the owner, while the status update can be done by anyone.
+    
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<OfferDto>))]
     public async Task<IActionResult> GetOffers()
@@ -47,16 +50,17 @@ public class OfferController(IMediator mediator) : ControllerBase
     public async Task<IActionResult> UpdateOffer([FromRoute] Guid offerId, [FromBody] UpdateOfferCommand command)
     {
         command.OfferId = offerId;
-        var isUpdated = await mediator.Send(command);
-        return isUpdated ? NoContent() : NotFound();
+        await mediator.Send(command);
+        return NoContent();
     }
     
     [HttpDelete("{offerId:guid}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status409Conflict)]
     public async Task<IActionResult> DeleteOffer([FromRoute] Guid offerId)
     {
         var isDeleted = await mediator.Send(new DeleteOfferCommand(offerId));
-        return isDeleted ? NoContent() : NotFound();
+        return isDeleted ? NoContent() : Conflict();
     }
 }

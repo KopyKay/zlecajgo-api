@@ -15,6 +15,9 @@ namespace ZlecajGo.API.Controllers;
 [Authorize(Policy = PolicyNames.HasProfileCompleted)]
 public class OfferContractorController(IMediator mediator) : ControllerBase
 {
+    // TODO: Update of OfferContractor must be specified by OfferId and ContractorId in query!
+    // TODO: Contract must be specified by OfferId and ContractorId in query!
+    
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<OfferContractorDto>))]
     public async Task<IActionResult> GetContractedOffers()
@@ -34,12 +37,12 @@ public class OfferContractorController(IMediator mediator) : ControllerBase
     
     [HttpPost("contract/{offerId:guid}")]
     [ProducesResponseType(StatusCodes.Status201Created)]
-    [ProducesResponseType(StatusCodes.Status409Conflict)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status409Conflict)]
     public async Task<IActionResult> ContractUserWithOffer([FromRoute] Guid offerId)
     {
-        await mediator.Send(new ContractUserWithOfferCommand(offerId));
-        return Created();
+        var isCreated = await mediator.Send(new ContractUserWithOfferCommand(offerId));
+        return isCreated ? Created() : Conflict();
     }
 
     [HttpPatch("update")]

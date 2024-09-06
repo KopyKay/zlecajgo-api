@@ -13,9 +13,9 @@ public class UpdateOfferCommandHandler
     IOfferRepository offerRepository,
     IMapper mapper
 )    
-: IRequestHandler<UpdateOfferCommand, bool>
+: IRequestHandler<UpdateOfferCommand>
 {
-    public async Task<bool> Handle(UpdateOfferCommand request, CancellationToken cancellationToken)
+    public async Task Handle(UpdateOfferCommand request, CancellationToken cancellationToken)
     {
         logger.LogInformation("Updating offer with id [{OfferId}]", request.OfferId);
 
@@ -25,6 +25,5 @@ public class UpdateOfferCommandHandler
         mapper.Map(request, offer);
         
         await offerRepository.SaveChangesAsync();
-        return true;
     }
 }

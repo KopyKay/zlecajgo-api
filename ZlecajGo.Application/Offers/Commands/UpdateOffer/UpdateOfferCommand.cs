@@ -3,7 +3,7 @@ using MediatR;
 
 namespace ZlecajGo.Application.Offers.Commands.UpdateOffer;
 
-public class UpdateOfferCommand : IRequest<bool>
+public class UpdateOfferCommand : IRequest
 {
     [JsonIgnore]
     public Guid OfferId { get; set; }
