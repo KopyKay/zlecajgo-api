@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using ZlecajGo.Application.Offers.Commands.CreateOffer;
 using ZlecajGo.Application.Offers.Commands.DeleteOffer;
 using ZlecajGo.Application.Offers.Commands.UpdateOffer;
+using ZlecajGo.Application.Offers.Commands.UpdateOfferStatus;
 using ZlecajGo.Application.Offers.Dtos;
 using ZlecajGo.Application.Offers.Queries.GetOffer;
 using ZlecajGo.Application.Offers.Queries.GetOffers;
@@ -16,9 +17,6 @@ namespace ZlecajGo.API.Controllers;
 [Authorize(Policy = PolicyNames.HasProfileCompleted)]
 public class OfferController(IMediator mediator) : ControllerBase
 {
-    // TODO: Split the UPDATE of an offer into a general update and a status update.
-    // The general update can only be done by the owner, while the status update can be done by anyone.
-    
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<OfferDto>))]
     public async Task<IActionResult> GetOffers()
@@ -46,8 +44,19 @@ public class OfferController(IMediator mediator) : ControllerBase
     
     [HttpPatch("{offerId:guid}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> UpdateOffer([FromRoute] Guid offerId, [FromBody] UpdateOfferCommand command)
+    {
+        command.OfferId = offerId;
+        await mediator.Send(command);
+        return NoContent();
+    }
+
+    [HttpPatch("{offerId:guid}/status")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> UpdateOfferStatus([FromRoute] Guid offerId, [FromBody] UpdateOfferStatusCommand command)
     {
         command.OfferId = offerId;
         await mediator.Send(command);

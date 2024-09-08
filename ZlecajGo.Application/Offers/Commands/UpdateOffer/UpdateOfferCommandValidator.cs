@@ -1,17 +1,11 @@
 using FluentValidation;
-using ZlecajGo.Domain.Entities;
-using ZlecajGo.Domain.Repositories;
 
 namespace ZlecajGo.Application.Offers.Commands.UpdateOffer;
 
 public class UpdateOfferCommandValidator : AbstractValidator<UpdateOfferCommand>
 {
-    private readonly IEnumerable<Status> _availableStatuses;
-    
-    public UpdateOfferCommandValidator(IStatusRepository statusRepository)
+    public UpdateOfferCommandValidator()
     {
-        _availableStatuses = statusRepository.GetStatusesAsync().Result;
-        
         RuleFor(command => command.Description)
             .Length(10, 500);
         
@@ -26,15 +20,5 @@ public class UpdateOfferCommandValidator : AbstractValidator<UpdateOfferCommand>
         
         RuleFor(command => command.ZipCode)
             .Matches(@"^\d{2}-\d{3}$");
-        
-        RuleFor(command => command.StatusId)
-            .Must(StatusIdExists)
-            .WithMessage("Invalid status identifier!");
-    }
-    
-    private bool StatusIdExists(int? statusId)
-    {
-        if (statusId == null) return true;
-            return _availableStatuses.Any(s => s.Id == statusId);
     }
 }
