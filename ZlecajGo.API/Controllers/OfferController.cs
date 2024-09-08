@@ -65,6 +65,7 @@ public class OfferController(IMediator mediator) : ControllerBase
     
     [HttpDelete("{offerId:guid}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status409Conflict)]
     public async Task<IActionResult> DeleteOffer([FromRoute] Guid offerId)
