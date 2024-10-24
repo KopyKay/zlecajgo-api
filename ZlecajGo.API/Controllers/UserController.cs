@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ZlecajGo.Application.Users.Commands.UpdateUser;
 using ZlecajGo.Application.Users.Dtos;
+using ZlecajGo.Application.Users.Queries.GetCurrentUserId;
 using ZlecajGo.Application.Users.Queries.GetUser;
 using ZlecajGo.Application.Users.Queries.GetUsers;
 using ZlecajGo.Domain.Constants;
@@ -14,6 +15,14 @@ namespace ZlecajGo.API.Controllers;
 [Authorize(Policy = PolicyNames.HasProfileCompleted)]
 public class UserController(IMediator mediator) : ControllerBase
 {
+    [HttpGet("currentUserId")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(string))]
+    public async Task<IActionResult> GetCurrentUserId()
+    {
+        var userId = await mediator.Send(new GetCurrentUserIdQuery());
+        return Ok(userId);
+    }
+    
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<UserDto>))]
     public async Task<IActionResult> GetUsers()
