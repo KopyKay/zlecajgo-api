@@ -2,6 +2,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using ZlecajGo.Application.Identity.Queries.IsEmailExist;
 using ZlecajGo.Application.Identity.Queries.IsPhoneNumberExist;
+using ZlecajGo.Application.Identity.Queries.IsUserNameExist;
 
 namespace ZlecajGo.API.Controllers;
 
@@ -23,5 +24,13 @@ public class IdentityController(IMediator mediator) : ControllerBase
     {
         var isPhoneNumberExists = await mediator.Send(new IsPhoneNumberExistQuery(phoneNumber));
         return Ok(isPhoneNumberExists);
+    }
+    
+    [HttpGet("isUserNameExists")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(bool))]
+    public async Task<IActionResult> IsUserNameExists([FromQuery] string userName)
+    {
+        var isUserNameExists = await mediator.Send(new IsUserNameExistQuery(userName));
+        return Ok(isUserNameExists);
     }
 }
