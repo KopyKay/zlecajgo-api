@@ -30,7 +30,11 @@ public class OfferProfile : Profile
                     ZipCode = dto.ZipCode,
                     Latitude = dto.Latitude,
                     Longitude = dto.Longitude
-                }));
+                }))
+            .ForMember(o => o.ExpiryDateTime, opt =>
+                opt.MapFrom(dto => dto.ExpiryDateTime.HasValue && dto.ExpiryDateTime.Value.Kind != DateTimeKind.Utc
+                    ? dto.ExpiryDateTime.Value.ToUniversalTime()
+                    : dto.ExpiryDateTime));
 
         CreateMap<UpdateOfferCommand, Offer>()
             .ForMember(o => o.Description, opt =>

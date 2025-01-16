@@ -16,7 +16,7 @@ public class CreateOfferCommandValidator : AbstractValidator<CreateOfferCommand>
             .GreaterThan(0).LessThan(100000.00m);
         
         RuleFor(command => command.ExpiryDateTime)
-            .GreaterThan(DateTime.UtcNow).LessThan(DateTime.UtcNow.AddDays(7));
+            .GreaterThan(DateTime.UtcNow).LessThan(DateTime.UtcNow.AddDays(8));
         
         RuleFor(command => command.City)
             .Length(2, 40);
