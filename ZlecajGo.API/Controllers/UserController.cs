@@ -1,6 +1,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using ZlecajGo.Application.Identity.Queries.ConfirmPassword;
 using ZlecajGo.Application.Users;
 using ZlecajGo.Application.Users.Commands.UpdateUser;
 using ZlecajGo.Application.Users.Dtos;
@@ -50,5 +51,13 @@ public class UserController(IMediator mediator) : ControllerBase
     {
         await mediator.Send(command);
         return NoContent();
+    }
+
+    [HttpGet("confirmPassword")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(bool))]
+    public async Task<IActionResult> CheckUserPassword([FromQuery] string password)
+    {
+        var isPasswordCorrect = await mediator.Send(new CheckUserPasswordQuery(password));
+        return Ok(isPasswordCorrect);
     }
 }
