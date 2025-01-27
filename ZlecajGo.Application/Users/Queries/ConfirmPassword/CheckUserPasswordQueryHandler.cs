@@ -1,12 +1,10 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using ZlecajGo.Application.Users;
 using ZlecajGo.Application.Users.Queries.GetUsers;
 using ZlecajGo.Domain.Entities;
 
-namespace ZlecajGo.Application.Identity.Queries.ConfirmPassword;
+namespace ZlecajGo.Application.Users.Queries.ConfirmPassword;
 
 public class CheckUserPasswordQueryHandler
 (
