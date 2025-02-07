@@ -30,11 +30,12 @@ app.UseMiddleware<ErrorHandlingMiddleware>();
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
+app.UseAuthorization();
+
 app.MapGroup("/api/identity")
     .WithTags("Identity")
     .MapIdentityApi<User>();
-
-app.UseAuthorization();
 
 app.MapControllers();
 
