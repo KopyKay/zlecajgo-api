@@ -9,7 +9,7 @@ namespace ZlecajGo.Application.Users.Commands.UpdateUser;
 public class UpdateUserCommandHandler
 (
     ILogger<UpdateUserCommandHandler> logger,
-    IUserStore<User> userStore,
+    UserManager<User> userManager,
     IUserContext userContext
 )    
 : IRequestHandler<UpdateUserCommand>
@@ -20,7 +20,7 @@ public class UpdateUserCommandHandler
         
         logger.LogInformation("Updating user with id [{UserId}]", user!.Id);
         
-        var dbUser = await userStore.FindByIdAsync(user.Id, cancellationToken)
+        var dbUser = await userManager.FindByIdAsync(user.Id)
             ?? throw new NotFoundException(nameof(User), user.Id);
         
         dbUser.FullName = request.FullName ?? dbUser.FullName;
@@ -42,6 +42,6 @@ public class UpdateUserCommandHandler
             dbUser.IsProfileCompleted = true;
         }
         
-        await userStore.UpdateAsync(dbUser, cancellationToken);
+        await userManager.UpdateAsync(dbUser);
     }
 }
