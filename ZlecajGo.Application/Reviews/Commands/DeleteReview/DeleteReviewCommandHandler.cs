@@ -32,6 +32,9 @@ public class DeleteReviewCommandHandler
         var review = await reviewRepository.GetWrittenReviewForUserAsync(reviewerId, revieweeId)
                      ?? throw new NotFoundException(nameof(Review),
                          $"of user who was reviewed with id {reviewerId}");
+
+        if (review.ReviewerId != user.Id)
+            throw new NotAllowedException();
         
         await reviewRepository.DeleteReviewAsync(review);
     }

@@ -55,6 +55,7 @@ public class OfferController(IMediator mediator) : ControllerBase
 
     [HttpPatch("{offerId:guid}/status")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> UpdateOfferStatus([FromRoute] Guid offerId, [FromBody] UpdateOfferStatusCommand command)
     {

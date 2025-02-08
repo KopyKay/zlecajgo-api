@@ -36,6 +36,9 @@ public class UpdateReviewCommandHandler
                      ?? throw new NotFoundException(nameof(Review),
                          $"of user who was reviewed with id {reviewerId}");
         
+        if (review.ReviewerId != user.Id)
+            throw new NotAllowedException();
+        
         mapper.Map(request, review);
 
         await reviewRepository.SaveChangesAsync();

@@ -74,6 +74,7 @@ public class ReviewController(IMediator mediator) : ControllerBase
     
     [HttpPatch("update/{userId}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> UpdateReview([FromRoute] string userId, [FromBody] UpdateReviewCommand command)
     {
@@ -84,6 +85,7 @@ public class ReviewController(IMediator mediator) : ControllerBase
     
     [HttpDelete("delete/{userId}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> DeleteReview([FromRoute] string userId)
     {

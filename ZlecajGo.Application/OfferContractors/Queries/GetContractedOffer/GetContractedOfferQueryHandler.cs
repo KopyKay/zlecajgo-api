@@ -30,6 +30,10 @@ public class GetContractedOfferQueryHandler
         var contractedOffer = await offerContractorRepository.GetContractedOfferByIdAsync(offerId, contractorId)
             ?? throw new NotFoundException(nameof(OfferContractor), $"{offerId} and {contractorId}");
         
+        if (contractedOffer.Offer.ProviderId != user.Id ||
+            contractedOffer.ContractorId != user.Id)
+            throw new NotAllowedException();
+        
         var contractedOfferDto = mapper.Map<OfferContractorDto>(contractedOffer);
         
         return contractedOfferDto;

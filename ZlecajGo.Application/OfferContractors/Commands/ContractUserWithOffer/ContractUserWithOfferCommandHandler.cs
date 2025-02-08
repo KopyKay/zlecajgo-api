@@ -2,6 +2,7 @@ using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
+using ZlecajGo.Application.Users;
 using ZlecajGo.Domain.Entities;
 using ZlecajGo.Domain.Exceptions;
 using ZlecajGo.Domain.Repositories;
@@ -14,12 +15,15 @@ public class ContractUserWithOfferCommandHandler
     IOfferContractorRepository offerContractorRepository,
     IUserStore<User> userStore,
     IOfferRepository offerRepository,
+    IUserContext userContext,
     IMapper mapper
 )        
 : IRequestHandler<ContractUserWithOfferCommand, bool>
 {
     public async Task<bool> Handle(ContractUserWithOfferCommand request, CancellationToken cancellationToken)
     {
+        var user = userContext.GetCurrentUser()!;
+        
         var contractorId = request.ContractorId;
         var offerId = request.OfferId;
         
@@ -29,8 +33,11 @@ public class ContractUserWithOfferCommandHandler
         _ = await userStore.FindByIdAsync(contractorId, cancellationToken)
             ?? throw new NotFoundException(nameof(User), contractorId);
         
-        _ = await offerRepository.GetOfferByIdAsync(offerId)
+        var offer = await offerRepository.GetOfferByIdAsync(offerId)
             ?? throw new NotFoundException(nameof(Offer), offerId.ToString());
+
+        if (offer.ProviderId != user.Id)
+            throw new NotAllowedException();
         
         var contractedOffer = mapper.Map<OfferContractor>(request);
         

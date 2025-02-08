@@ -25,6 +25,7 @@ public class OfferContractorController(IMediator mediator) : ControllerBase
     
     [HttpGet("{offerId:guid}")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(OfferContractorDto))]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetContractedOffer([FromRoute] Guid offerId)
     {
@@ -34,6 +35,7 @@ public class OfferContractorController(IMediator mediator) : ControllerBase
     
     [HttpPost("{contractorId}/contract/{offerId:guid}")]
     [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status409Conflict)]
     public async Task<IActionResult> ContractUserWithOffer([FromRoute] string contractorId, [FromRoute] Guid offerId)
@@ -44,6 +46,7 @@ public class OfferContractorController(IMediator mediator) : ControllerBase
 
     [HttpPatch("update")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> UpdateContractedOffer([FromBody] UpdateContractedOfferCommand command)
     {
