@@ -2,6 +2,7 @@ using AutoMapper;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using ZlecajGo.Application.OfferContractors.Dtos;
+using ZlecajGo.Application.Users;
 using ZlecajGo.Domain.Repositories;
 
 namespace ZlecajGo.Application.OfferContractors.Queries.GetContractedOffers;
@@ -9,6 +10,7 @@ namespace ZlecajGo.Application.OfferContractors.Queries.GetContractedOffers;
 public class GetContractedOffersQueryHandler 
 (
     ILogger<GetContractedOffersQueryHandler> logger,
+    IUserContext userContext,
     IOfferContractorRepository offerContractorRepository,
     IMapper mapper
 )     
@@ -16,9 +18,12 @@ public class GetContractedOffersQueryHandler
 {
     public async Task<IEnumerable<OfferContractorDto>> Handle(GetContractedOffersQuery request, CancellationToken cancellationToken)
     {
-        logger.LogInformation("Getting all contracted offers");
+        var user = userContext.GetCurrentUser()!;
         
-        var contractedOffers = await offerContractorRepository.GetContractedOffersAsync();
+        logger.LogInformation("Getting all contracted offers for user with id [{UserId}]", user.Id);
+
+        var contractedOffers = await offerContractorRepository.GetContractedOffersAsync(user.Id);
+        
         var contractedOffersDto = mapper.Map<IEnumerable<OfferContractorDto>>(contractedOffers);
 
         return contractedOffersDto;

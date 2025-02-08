@@ -25,7 +25,6 @@ public class OfferContractorController(IMediator mediator) : ControllerBase
     
     [HttpGet("{offerId:guid}")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(OfferContractorDto))]
-    [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetContractedOffer([FromRoute] Guid offerId)
     {

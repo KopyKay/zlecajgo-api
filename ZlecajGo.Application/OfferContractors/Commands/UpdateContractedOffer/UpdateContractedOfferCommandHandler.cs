@@ -33,16 +33,20 @@ public class UpdateContractedOfferCommandHandler
         _ = await userStore.FindByIdAsync(contractorId, cancellationToken)
             ?? throw new NotFoundException(nameof(User), contractorId);
         
-        _ = await offerRepository.GetOfferByIdAsync(offerId)
+        var offer = await offerRepository.GetOfferByIdAsync(offerId)
             ?? throw new NotFoundException(nameof(Offer), offerId.ToString());
 
         var contractedOffer = await offerContractorRepository
             .GetContractedOfferByIdWithTrackingAsync(offerId, contractorId)
-            ?? throw new NotFoundException(nameof(OfferContractor), $"{offerId} and {contractorId}");
-        
-        if (contractedOffer.Offer.ProviderId != user.Id ||
-            contractedOffer.ContractorId != user.Id)
-            throw new NotAllowedException();
+            ?? throw new NotFoundException(nameof(OfferContractor), $"{offerId}] and [{contractorId}");
+
+        if (contractedOffer.ContractorId != user.Id)
+        {
+            if (offer.ProviderId != user.Id && contractedOffer.ContractorId != contractorId)
+            {
+                throw new NotAllowedException();
+            }
+        }
         
         mapper.Map(request, contractedOffer);
         

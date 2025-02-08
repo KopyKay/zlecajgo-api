@@ -8,28 +8,34 @@ namespace ZlecajGo.Infrastructure.Repositories;
 
 internal class OfferContractorRepository(ZlecajGoContext dbContext) : IOfferContractorRepository
 {
-    public async Task<IEnumerable<OfferContractor>> GetContractedOffersAsync()
+    public async Task<IEnumerable<OfferContractor>> GetContractedOffersAsync(string userId)
     {
         var contractedOffers = await dbContext.OfferContractors
             .AsNoTracking()
+            .Where(oc => oc.Offer.ProviderId == userId ||
+                         oc.ContractorId == userId)
             .ToListAsync();
 
         return contractedOffers;
     }
 
-    public async Task<OfferContractor?> GetContractedOfferByIdAsync(Guid offerId, string contractorId)
+    public async Task<OfferContractor?> GetContractedOfferByIdAsync(Guid offerId, string userId)
     {
         var contractedOffer = await dbContext.OfferContractors
             .AsNoTracking()
-            .FirstOrDefaultAsync(oc => oc.OfferId == offerId && oc.ContractorId == contractorId);
+            .FirstOrDefaultAsync(oc => oc.OfferId == offerId &&
+                                       (oc.Offer.ProviderId == userId ||
+                                        oc.ContractorId == userId));
 
         return contractedOffer;
     }
 
-    public async Task<OfferContractor?> GetContractedOfferByIdWithTrackingAsync(Guid offerId, string contractorId)
+    public async Task<OfferContractor?> GetContractedOfferByIdWithTrackingAsync(Guid offerId, string userId)
     {
         var offerContractor = await dbContext.OfferContractors
-            .FirstOrDefaultAsync(oc => oc.OfferId == offerId && oc.ContractorId == contractorId);
+            .FirstOrDefaultAsync(oc => oc.OfferId == offerId &&
+                                       (oc.Offer.ProviderId == userId ||
+                                        oc.ContractorId == userId));
 
         return offerContractor;
     }
