@@ -21,11 +21,11 @@ public class UpdateReviewCommandHandler
 {
     public async Task Handle(UpdateReviewCommand request, CancellationToken cancellationToken)
     {
-        var user = userContext.GetCurrentUser();
-        request.ReviewerId = user!.Id;
+        var user = userContext.GetCurrentUser()!;
+        request.ReviewerId = user.Id;
         
-        var reviewerId = request.ReviewerId;
-        var revieweeId = request.RevieweeId;
+        var reviewerId = request.ReviewerId!;
+        var revieweeId = request.RevieweeId!;
         
         logger.LogInformation("Updating review with {@Review}", request);
 

@@ -67,7 +67,7 @@ public class ReviewController(IMediator mediator) : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> CreateReview([FromRoute] string userId, [FromBody] CreateReviewCommand command)
     {
-        command.RevieweeId = userId;
+        command.RevieweeIdFromQuery = userId;
         var result = await mediator.Send(command);
         return result ? Created() : BadRequest();
     }
@@ -78,7 +78,7 @@ public class ReviewController(IMediator mediator) : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> UpdateReview([FromRoute] string userId, [FromBody] UpdateReviewCommand command)
     {
-        command.RevieweeId = userId;
+        command.RevieweeIdFromQuery = userId;
         await mediator.Send(command);
         return NoContent();
     }

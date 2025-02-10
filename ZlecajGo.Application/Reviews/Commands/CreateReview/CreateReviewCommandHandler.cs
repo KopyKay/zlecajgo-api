@@ -21,10 +21,10 @@ public class CreateReviewCommandHandler
 {
     public async Task<bool> Handle(CreateReviewCommand request, CancellationToken cancellationToken)
     {
-        var user = userContext.GetCurrentUser();
-        request.ReviewerId = user!.Id;
+        var user = userContext.GetCurrentUser()!;
+        request.ReviewerId = user.Id;
         
-        var revieweeId = request.RevieweeId;
+        var revieweeId = request.RevieweeId!;
         
         logger.LogInformation("Creating review {@Review}", request);
         
