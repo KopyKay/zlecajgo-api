@@ -9,6 +9,7 @@ using ZlecajGo.Application.Users.Queries.GetCurrentUser;
 using ZlecajGo.Application.Users.Queries.GetUser;
 using ZlecajGo.Application.Users.Queries.GetUsers;
 using ZlecajGo.Domain.Constants;
+using ZlecajGo.Domain.Entities;
 
 namespace ZlecajGo.API.Controllers;
 
@@ -37,7 +38,7 @@ public class UserController(IMediator mediator) : ControllerBase
     }
     
     [HttpGet("currentUser")]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(CurrentUser))]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UserDto))]
     public async Task<IActionResult> GetCurrentUser()
     {
         var user = await mediator.Send(new GetCurrentUserQuery());
