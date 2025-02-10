@@ -16,12 +16,10 @@ public class CheckUserPasswordQueryHandler
 {
     public async Task<bool> Handle(CheckUserPasswordQuery request, CancellationToken cancellationToken)
     {
-        var currentUser = userContext.GetCurrentUser();
-
-        logger.LogInformation("Checking if password is correct for {@UserEmail}", currentUser!.Email);
-        
         var currentUser = userContext.GetCurrentUser()!;
         var user = await userManager.FindByIdAsync(currentUser.Id);
+
+        logger.LogInformation("Checking if password is correct for {@UserEmail}", user!.Email);
         
         var isPasswordCorrect = await userManager.CheckPasswordAsync(user, request.Password);
         
