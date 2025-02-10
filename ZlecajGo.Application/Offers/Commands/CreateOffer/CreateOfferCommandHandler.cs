@@ -18,8 +18,8 @@ public class CreateOfferCommandHandler
 {
     public async Task<Guid> Handle(CreateOfferCommand request, CancellationToken cancellationToken)
     {
-        var user = userContext.GetCurrentUser();
-        request.ProviderId = user!.Id;
+        var user = userContext.GetCurrentUser()!;
+        request.ProviderId = user.Id;
         
         logger.LogInformation("Creating new offer {@Offer}", request);
         

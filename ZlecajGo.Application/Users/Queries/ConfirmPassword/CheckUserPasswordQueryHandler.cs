@@ -20,9 +20,10 @@ public class CheckUserPasswordQueryHandler
 
         logger.LogInformation("Checking if password is correct for {@UserEmail}", currentUser!.Email);
         
+        var currentUser = userContext.GetCurrentUser()!;
         var user = await userManager.FindByIdAsync(currentUser.Id);
         
-        var isPasswordCorrect = await userManager.CheckPasswordAsync(user!, request.Password);
+        var isPasswordCorrect = await userManager.CheckPasswordAsync(user, request.Password);
         
         return isPasswordCorrect;
     }

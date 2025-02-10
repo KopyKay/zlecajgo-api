@@ -19,8 +19,8 @@ public class DeleteReviewCommandHandler
 {
     public async Task Handle(DeleteReviewCommand request, CancellationToken cancellationToken)
     {
-        var user = userContext.GetCurrentUser();
-        var reviewerId = user!.Id;
+        var user = userContext.GetCurrentUser()!;
+        var reviewerId = user.Id;
         var revieweeId = request.RevieweeId;
         
         logger.LogInformation("Deleting review for user with id [{Reviewee}] by user with id [{Reviewer}]", 

@@ -19,14 +19,14 @@ public class UpdateOfferCommandHandler
 {
     public async Task Handle(UpdateOfferCommand request, CancellationToken cancellationToken)
     {
-        var user = userContext.GetCurrentUser();
+        var user = userContext.GetCurrentUser()!;
         
         logger.LogInformation("Updating offer with id [{OfferId}]", request.OfferId);
 
         var offer = await offerRepository.GetOfferByIdWithTrackingAsync(request.OfferId)
             ?? throw new NotFoundException(nameof(Offer), request.OfferId.ToString());
 
-        if (offer.ProviderId != user!.Id)
+        if (offer.ProviderId != user.Id)
             throw new NotAllowedException();
         
         mapper.Map(request, offer);

@@ -17,14 +17,14 @@ public class DeleteOfferCommandHandler
 {
     public async Task<bool> Handle(DeleteOfferCommand request, CancellationToken cancellationToken)
     {
-        var user = userContext.GetCurrentUser();
+        var user = userContext.GetCurrentUser()!;
         
         logger.LogInformation("Deleting offer with id [{OfferId}]", request.OfferId);
         
         var offer = await offerRepository.GetOfferByIdAsync(request.OfferId)
             ?? throw new NotFoundException(nameof(Offer), request.OfferId.ToString());
         
-        if (offer.ProviderId != user!.Id)
+        if (offer.ProviderId != user.Id)
             throw new NotAllowedException();
         
         var result = await offerRepository.DeleteOfferAsync(offer);

@@ -16,9 +16,9 @@ public class UpdateUserCommandHandler
 {
     public async Task Handle(UpdateUserCommand request, CancellationToken cancellationToken)
     {
-        var user = userContext.GetCurrentUser();
+        var user = userContext.GetCurrentUser()!;
         
-        logger.LogInformation("Updating user with id [{UserId}]", user!.Id);
+        logger.LogInformation("Updating user with id [{UserId}]", user.Id);
         
         var dbUser = await userManager.FindByIdAsync(user.Id)
             ?? throw new NotFoundException(nameof(User), user.Id);

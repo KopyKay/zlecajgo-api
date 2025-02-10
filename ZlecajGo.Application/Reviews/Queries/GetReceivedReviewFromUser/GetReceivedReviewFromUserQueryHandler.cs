@@ -22,9 +22,9 @@ public class GetReceivedReviewFromUserQueryHandler
 {
     public async Task<ReviewDto> Handle(GetReceivedReviewFromUserQuery request, CancellationToken cancellationToken)
     {
-        var user = userContext.GetCurrentUser();
+        var user = userContext.GetCurrentUser()!;
         var reviewerId = request.UserId;
-        var revieweeId = user!.Id;
+        var revieweeId = user.Id;
         
         logger.LogInformation("Getting review written to user with id [{RevieweeId}] from user with id [{ReviewerId}]", 
             revieweeId, reviewerId);
