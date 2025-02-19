@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ZlecajGo.Application.Users;
 using ZlecajGo.Application.Users.Commands.ChangeUserPassword;
+using ZlecajGo.Application.Users.Commands.ConfirmPassword;
 using ZlecajGo.Application.Users.Commands.UpdateUser;
 using ZlecajGo.Application.Users.Dtos;
-using ZlecajGo.Application.Users.Queries.ConfirmPassword;
 using ZlecajGo.Application.Users.Queries.GetCurrentUser;
 using ZlecajGo.Application.Users.Queries.GetUser;
 using ZlecajGo.Application.Users.Queries.GetUsers;
@@ -55,11 +55,11 @@ public class UserController(IMediator mediator) : ControllerBase
         return NoContent();
     }
 
-    [HttpGet("confirmPassword")]
+    [HttpPost("confirmPassword")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(bool))]
-    public async Task<IActionResult> ConfirmUserPassword([FromQuery] string password)
+    public async Task<IActionResult> ConfirmUserPassword([FromBody] CheckUserPasswordCommand command)
     {
-        var isPasswordCorrect = await mediator.Send(new CheckUserPasswordQuery(password));
+        var isPasswordCorrect = await mediator.Send(command);
         return Ok(isPasswordCorrect);
     }
     

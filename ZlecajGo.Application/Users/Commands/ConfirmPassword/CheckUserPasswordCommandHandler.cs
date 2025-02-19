@@ -4,17 +4,17 @@ using Microsoft.Extensions.Logging;
 using ZlecajGo.Application.Users.Queries.GetUsers;
 using ZlecajGo.Domain.Entities;
 
-namespace ZlecajGo.Application.Users.Queries.ConfirmPassword;
+namespace ZlecajGo.Application.Users.Commands.ConfirmPassword;
 
-public class CheckUserPasswordQueryHandler
+public class CheckUserPasswordCommandHandler
 (
     ILogger<GetUsersQueryHandler> logger,
     UserManager<User> userManager,
     IUserContext userContext
 )    
-: IRequestHandler<CheckUserPasswordQuery, bool>
+: IRequestHandler<CheckUserPasswordCommand, bool>
 {
-    public async Task<bool> Handle(CheckUserPasswordQuery request, CancellationToken cancellationToken)
+    public async Task<bool> Handle(CheckUserPasswordCommand request, CancellationToken cancellationToken)
     {
         var currentUser = userContext.GetCurrentUser()!;
         var user = await userManager.FindByIdAsync(currentUser.Id);
