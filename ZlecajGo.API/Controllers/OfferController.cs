@@ -6,6 +6,7 @@ using ZlecajGo.Application.Offers.Commands.DeleteOffer;
 using ZlecajGo.Application.Offers.Commands.UpdateOffer;
 using ZlecajGo.Application.Offers.Commands.UpdateOfferStatus;
 using ZlecajGo.Application.Offers.Dtos;
+using ZlecajGo.Application.Offers.Queries.GetCurrentUserOffers;
 using ZlecajGo.Application.Offers.Queries.GetOffer;
 using ZlecajGo.Application.Offers.Queries.GetOffers;
 using ZlecajGo.Domain.Constants;
@@ -34,6 +35,14 @@ public class OfferController(IMediator mediator) : ControllerBase
         return Ok(offer);
     }
 
+    [HttpGet("currentUserOffers")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<OfferDto>))]
+    public async Task<IActionResult> GetCurrentUserOffers()
+    {
+        var userOffers = await mediator.Send(new GetCurrentUserOffersQuery());
+        return Ok(userOffers);
+    }
+    
     [HttpPost("create")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     public async Task<IActionResult> CreateOffer([FromBody] CreateOfferCommand command)

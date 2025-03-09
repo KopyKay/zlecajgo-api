@@ -33,6 +33,16 @@ internal class OfferRepository(ZlecajGoContext dbContext) : IOfferRepository
         return offer;
     }
 
+    public async Task<IEnumerable<Offer>> GetUserOffersAsync(string userId)
+    {
+        var userOffers = await dbContext.Offers
+            .Where(o => o.ProviderId == userId)
+            .AsNoTracking()
+            .ToListAsync();
+
+        return userOffers;
+    }
+
     public async Task<Guid> CreateOfferAsync(Offer entity)
     {
         await dbContext.Offers.AddAsync(entity);
