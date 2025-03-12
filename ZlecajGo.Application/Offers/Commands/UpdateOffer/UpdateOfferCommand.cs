@@ -9,6 +9,7 @@ public class UpdateOfferCommand : IRequest
     public Guid OfferId { get; set; }
     public string? Description { get; set; }
     public decimal? Price { get; set; }
+    public DateTime? ExpiryDateTime { get; set; }
     public string[]? ImageUrls { get; set; }
     public string? City { get; set; }
     public string? Street { get; set; }
