@@ -1,6 +1,7 @@
 using AutoMapper;
 using ZlecajGo.Application.Offers.Commands.CreateOffer;
 using ZlecajGo.Application.Offers.Commands.UpdateOffer;
+using ZlecajGo.Application.Offers.Commands.UpdateOfferStatus;
 using ZlecajGo.Domain.Entities;
 
 namespace ZlecajGo.Application.Offers.Dtos;
@@ -54,5 +55,9 @@ public class OfferProfile : Profile
                 }))
             .ForMember(o => o.StatusId, opt =>
                 opt.MapFrom((dto, og) => dto.StatusId ?? og.StatusId));
+        
+        CreateMap<UpdateOfferStatusCommand, Offer>()
+            .ForMember(o => o.StatusId, opt =>
+                opt.MapFrom(dto => dto.StatusId));
     }
 }

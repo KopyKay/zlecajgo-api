@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -43,51 +44,51 @@ public class ReviewController(IMediator mediator) : ControllerBase
         return Ok(reviews);
     }
     
-    [HttpGet("receivedFromUser/{userId}")]
+    [HttpGet("receivedFromUser")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ReviewDto))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> GetReceivedReviewFromUser([FromRoute] string userId)
+    public async Task<IActionResult> GetReceivedReviewFromUser([FromQuery, Required] string userId)
     {
         var review = await mediator.Send(new GetReceivedReviewFromUserQuery(userId));
         return Ok(review);
     }
     
-    [HttpGet("writtenForUser/{userId}")]
+    [HttpGet("writtenForUser")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ReviewDto))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> GetWrittenReviewForUser([FromRoute] string userId)
+    public async Task<IActionResult> GetWrittenReviewForUser([FromQuery, Required] string userId)
     {
         var review = await mediator.Send(new GetWrittenReviewForUserQuery(userId));
         return Ok(review);
     }
 
-    [HttpPost("create/{userId}")]
+    [HttpPost("create")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> CreateReview([FromRoute] string userId, [FromBody] CreateReviewCommand command)
+    public async Task<IActionResult> CreateReview([FromQuery, Required] string userId, [FromBody, Required] CreateReviewCommand command)
     {
         command.RevieweeIdFromQuery = userId;
         var result = await mediator.Send(command);
         return result ? Created() : BadRequest();
     }
     
-    [HttpPatch("update/{userId}")]
+    [HttpPatch("update")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> UpdateReview([FromRoute] string userId, [FromBody] UpdateReviewCommand command)
+    public async Task<IActionResult> UpdateReview([FromQuery, Required] string userId, [FromBody, Required] UpdateReviewCommand command)
     {
         command.RevieweeIdFromQuery = userId;
         await mediator.Send(command);
         return NoContent();
     }
     
-    [HttpDelete("delete/{userId}")]
+    [HttpDelete("delete")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> DeleteReview([FromRoute] string userId)
+    public async Task<IActionResult> DeleteReview([FromQuery, Required] string userId)
     {
         await mediator.Send(new DeleteReviewCommand(userId));
         return NoContent();

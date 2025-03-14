@@ -1,11 +1,11 @@
+using System.ComponentModel.DataAnnotations;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ZlecajGo.Application.OfferContractors.Commands.ContractUserWithOffer;
 using ZlecajGo.Application.OfferContractors.Commands.UpdateContractedOffer;
 using ZlecajGo.Application.OfferContractors.Dtos;
-using ZlecajGo.Application.OfferContractors.Queries.GetContractedOffer;
-using ZlecajGo.Application.OfferContractors.Queries.GetContractedOffers;
+using ZlecajGo.Application.OfferContractors.Queries.GetContractedOfferOrOffers;
 using ZlecajGo.Domain.Constants;
 
 namespace ZlecajGo.API.Controllers;
@@ -16,38 +16,31 @@ namespace ZlecajGo.API.Controllers;
 public class OfferContractorController(IMediator mediator) : ControllerBase
 {
     [HttpGet]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<OfferContractorDto>))]
-    public async Task<IActionResult> GetContractedOffers()
-    {
-        var contractedOffers = await mediator.Send(new GetContractedOffersQuery());
-        return Ok(contractedOffers);
-    }
-    
-    [HttpGet("{offerId:guid}")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(OfferContractorDto))]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<OfferContractorDto>))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> GetContractedOffer([FromRoute] Guid offerId)
+    public async Task<IActionResult> GetContractedOfferOrOffers([FromQuery] Guid? offerId)
     {
-        var contractedOffer = await mediator.Send(new GetContractedOfferQuery(offerId));
-        return Ok(contractedOffer);
+        var result = await mediator.Send(new GetContractedOfferOrOffersQuery(offerId));
+        return result.Match<IActionResult>(Ok, Ok);
     }
     
-    [HttpPost("{contractorId}/contract/{offerId:guid}")]
+    [HttpPost("createContract")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status409Conflict)]
-    public async Task<IActionResult> ContractUserWithOffer([FromRoute] string contractorId, [FromRoute] Guid offerId)
+    public async Task<IActionResult> ContractUserWithOffer([FromBody, Required] ContractUserWithOfferCommand command)
     {
-        var isCreated = await mediator.Send(new ContractUserWithOfferCommand(contractorId, offerId));
+        var isCreated = await mediator.Send(command);
         return isCreated ? Created() : Conflict();
     }
 
-    [HttpPatch("update")]
+    [HttpPatch("updateContract")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> UpdateContractedOffer([FromBody] UpdateContractedOfferCommand command)
+    public async Task<IActionResult> UpdateContractedOffer([FromBody, Required] UpdateContractedOfferCommand command)
     {
         await mediator.Send(command);
         return NoContent();

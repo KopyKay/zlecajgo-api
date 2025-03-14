@@ -2,7 +2,9 @@ using MediatR;
 
 namespace ZlecajGo.Application.OfferContractors.Commands.ContractUserWithOffer;
 
-public record ContractUserWithOfferCommand(string ContractorId, Guid OfferId) : IRequest<bool>
+public class ContractUserWithOfferCommand : IRequest<bool>
 {
+    public Guid OfferId { get; set; }
+    public string ContractorId { get; set; } = null!;
     public int? StatusId { get; set; }
 }

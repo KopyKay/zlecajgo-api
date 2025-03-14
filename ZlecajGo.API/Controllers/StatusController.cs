@@ -2,8 +2,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ZlecajGo.Application.Statuses.Dtos;
-using ZlecajGo.Application.Statuses.Queries.GetStatus;
-using ZlecajGo.Application.Statuses.Queries.GetStatuses;
+using ZlecajGo.Application.Statuses.Queries.GetStatusOrStatuses;
 using ZlecajGo.Domain.Constants;
 
 namespace ZlecajGo.API.Controllers;
@@ -14,19 +13,12 @@ namespace ZlecajGo.API.Controllers;
 public class StatusController(IMediator mediator) : ControllerBase
 {
     [HttpGet]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<StatusDto>))]
-    public async Task<IActionResult> GetStatuses()
-    {
-        var statuses = await mediator.Send(new GetStatusesQuery());
-        return Ok(statuses);
-    }
-    
-    [HttpGet("{statusId:int}")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(StatusDto))]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<StatusDto>))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> GetStatus([FromRoute] int statusId)
+    public async Task<IActionResult> GetStatusOrStatuses([FromQuery] int? statusId)
     {
-        var status = await mediator.Send(new GetStatusQuery(statusId));
-        return Ok(status);
+        var result = await mediator.Send(new GetStatusOrStatusesQuery(statusId));
+        return result.Match<IActionResult>(Ok, Ok);
     }
 }

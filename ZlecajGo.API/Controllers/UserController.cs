@@ -1,16 +1,14 @@
+using System.ComponentModel.DataAnnotations;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ZlecajGo.Application.Users;
 using ZlecajGo.Application.Users.Commands.ChangeUserPassword;
 using ZlecajGo.Application.Users.Commands.ConfirmPassword;
 using ZlecajGo.Application.Users.Commands.UpdateUser;
 using ZlecajGo.Application.Users.Dtos;
 using ZlecajGo.Application.Users.Queries.GetCurrentUser;
-using ZlecajGo.Application.Users.Queries.GetUser;
-using ZlecajGo.Application.Users.Queries.GetUsers;
+using ZlecajGo.Application.Users.Queries.GetUserOrUsers;
 using ZlecajGo.Domain.Constants;
-using ZlecajGo.Domain.Entities;
 
 namespace ZlecajGo.API.Controllers;
 
@@ -21,21 +19,13 @@ public class UserController(IMediator mediator) : ControllerBase
 {
     [HttpGet]
     [Authorize(Policy = PolicyNames.HasProfileCompleted)]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<UserDto>))]
-    public async Task<IActionResult> GetUsers()
-    {
-        var users = await mediator.Send(new GetUsersQuery());
-        return Ok(users);
-    }
-
-    [HttpGet("{userId}")]
-    [Authorize(Policy = PolicyNames.HasProfileCompleted)]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UserDto))]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<UserDto>))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> GetUser([FromRoute] string userId)
+    public async Task<IActionResult> GetUserOrUsers([FromQuery] string? userId)
     {
-        var user = await mediator.Send(new GetUserQuery(userId));
-        return Ok(user);
+        var result = await mediator.Send(new GetUserOrUsersQuery(userId));
+        return result.Match<IActionResult>(Ok, Ok);
     }
     
     [HttpGet("currentUser")]
@@ -49,7 +39,7 @@ public class UserController(IMediator mediator) : ControllerBase
     [HttpPatch("update")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> UpdateUser([FromBody] UpdateUserCommand command)
+    public async Task<IActionResult> UpdateUser([FromBody, Required] UpdateUserCommand command)
     {
         await mediator.Send(command);
         return NoContent();
@@ -57,7 +47,7 @@ public class UserController(IMediator mediator) : ControllerBase
 
     [HttpPost("confirmPassword")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(bool))]
-    public async Task<IActionResult> ConfirmUserPassword([FromBody] CheckUserPasswordCommand command)
+    public async Task<IActionResult> ConfirmUserPassword([FromBody, Required] CheckUserPasswordCommand command)
     {
         var isPasswordCorrect = await mediator.Send(command);
         return Ok(isPasswordCorrect);
@@ -66,7 +56,7 @@ public class UserController(IMediator mediator) : ControllerBase
     [HttpPost("changePassword")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(bool))]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> ChangeUserPassword([FromBody] ChangeUserPasswordCommand command)
+    public async Task<IActionResult> ChangeUserPassword([FromBody, Required] ChangeUserPasswordCommand command)
     {
         var passwordChanged = await mediator.Send(command);
         return Ok(passwordChanged);
