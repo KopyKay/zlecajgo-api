@@ -2,14 +2,13 @@ using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using ZlecajGo.Application.Users.Queries.GetUsers;
 using ZlecajGo.Domain.Entities;
 
 namespace ZlecajGo.Application.Identity.Queries.IsEmailExist;
 
 public class IsEmailExistQueryHandler
 (
-    ILogger<GetUsersQueryHandler> logger,
+    ILogger<IsEmailExistQueryHandler> logger,
     UserManager<User> userManager
 )    
 : IRequestHandler<IsEmailExistQuery, bool>
