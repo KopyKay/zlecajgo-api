@@ -13,6 +13,8 @@ internal class ZlecajGoContext(DbContextOptions<ZlecajGoContext> options) : Iden
     internal DbSet<Review> Reviews { get; set; }
     internal DbSet<Status> Statuses { get; set; }
     internal DbSet<Type> Types { get; set; }
+    internal DbSet<Chat> Chats { get; set; }
+    internal DbSet<Message> Messages { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

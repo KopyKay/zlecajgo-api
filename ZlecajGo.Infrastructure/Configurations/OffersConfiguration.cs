@@ -1,13 +1,12 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using ZlecajGo.Domain.Constants;
 using ZlecajGo.Domain.Entities;
 
 namespace ZlecajGo.Infrastructure.Configurations;
 
 internal class OffersConfiguration : IEntityTypeConfiguration<Offer>
 {
-    private const string GetUtcDateSql = "CURRENT_TIMESTAMP AT TIME ZONE 'UTC'";
-    
     public void Configure(EntityTypeBuilder<Offer> builder)
     {
         builder.Property(o => o.Title)
@@ -20,10 +19,10 @@ internal class OffersConfiguration : IEntityTypeConfiguration<Offer>
             .HasPrecision(7, 2);
         
         builder.Property(o => o.PostDateTime)
-            .HasDefaultValueSql(GetUtcDateSql);
+            .HasDefaultValueSql(SqlDefaults.CurrentUtcTimestamp);
 
         builder.Property(o => o.ExpiryDateTime)
-            .HasDefaultValueSql(GetUtcDateSql + " + INTERVAL '2 days'");
+            .HasDefaultValueSql(SqlDefaults.CurrentUtcTimestampPlus2Days);
         
         builder.OwnsOne(o => o.Location, location =>
         {

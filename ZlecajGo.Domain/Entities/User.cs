@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.AspNetCore.Identity;
 
 namespace ZlecajGo.Domain.Entities;
@@ -14,4 +15,13 @@ public class User : IdentityUser
     public List<Offer> ContractedOffers { get; set; } = [];
     public List<Review> ReviewsGiven { get; set; } = [];
     public List<Review> ReviewsReceived { get; set; } = [];
+    
+    [InverseProperty(nameof(Chat.User1))]
+    public ICollection<Chat> ChatsAsUser1 { get; set; } = [];
+    
+    [InverseProperty(nameof(Chat.User2))]
+    public ICollection<Chat> ChatsAsUser2 { get; set; } = [];
+    
+    [InverseProperty(nameof(Message.Sender))]
+    public ICollection<Message> MessagesSent { get; set; } = [];
 }
