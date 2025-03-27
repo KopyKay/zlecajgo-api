@@ -34,6 +34,7 @@ public static class ServiceCollectionExtension
         services.AddScoped<IZlecajGoSeeder, ZlecajGoSeeder>();
         
         services.AddScoped<ICategoryRepository, CategoryRepository>();
+        services.AddScoped<IChatRepository, ChatRepository>();
         services.AddScoped<IOfferContractorRepository, OfferContractorRepository>();
         services.AddScoped<IOfferRepository, OfferRepository>();
         services.AddScoped<IReviewRepository, ReviewRepository>();
