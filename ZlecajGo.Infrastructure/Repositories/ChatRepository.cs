@@ -7,19 +7,6 @@ namespace ZlecajGo.Infrastructure.Repositories;
 
 internal class ChatRepository(ZlecajGoContext dbContext) : IChatRepository
 {
-    public async Task<Chat?> GetChatByIdAsync(Guid chatId)
-    {
-        var chat = await dbContext.Chats
-            .AsNoTracking()
-            .Include(c => c.Messages.OrderByDescending(m => m.SentAt))
-                .ThenInclude(m => m.Sender)
-            .Include(c => c.User1)
-            .Include(c => c.User2)
-            .FirstOrDefaultAsync(c => c.Id == chatId);
-
-        return chat;
-    }
-
     public async Task<Chat?> GetUserChatAsync(string userId, Guid chatId)
     {
         var chat = await dbContext.Chats
@@ -64,16 +51,20 @@ internal class ChatRepository(ZlecajGoContext dbContext) : IChatRepository
         return message.Id;
     }
 
-    public async Task UpdateChatAsync(Chat chat)
+    public async Task UpdateChatLastMessageAtAsync(Guid chatId, DateTime lastMessageAt)
     {
-        dbContext.Chats.Update(chat);
-        await SaveChangesAsync();
+        await dbContext.Chats
+            .Where(c => c.Id == chatId)
+            .ExecuteUpdateAsync(s => s
+                .SetProperty(c => c.LastMessageAt, lastMessageAt));
     }
 
-    public async Task UpdateMessageAsync(Message message)
+    public async Task UpdateMessageIsReadAsync(Message message)
     {
-        dbContext.Messages.Update(message);
-        await SaveChangesAsync();
+        await dbContext.Messages
+            .Where(m => m.Id == message.Id && m.ChatId == message.ChatId)
+            .ExecuteUpdateAsync(s => s
+                .SetProperty(m => m.IsRead, true));
     }
 
     private async Task SaveChangesAsync() => await dbContext.SaveChangesAsync();
