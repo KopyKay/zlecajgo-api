@@ -1,9 +1,11 @@
+using Microsoft.OpenApi.Models;
 using Serilog;
 using ZlecajGo.API.Extensions;
 using ZlecajGo.API.Middlewares;
 using ZlecajGo.Application.Extensions;
 using ZlecajGo.Domain.Entities;
 using ZlecajGo.Infrastructure.Extensions;
+using ZlecajGo.Infrastructure.Hubs.Chat;
 using ZlecajGo.Infrastructure.Seeders;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -36,6 +38,8 @@ app.UseAuthorization();
 app.MapGroup("/api/identity")
     .WithTags("Identity")
     .MapIdentityApi<User>();
+
+app.MapHub<ChatHub>("hubs/chat");
 
 app.MapControllers();
 

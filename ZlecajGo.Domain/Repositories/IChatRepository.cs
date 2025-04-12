@@ -10,4 +10,5 @@ public interface IChatRepository
     Task<Guid> CreateMessageAsync(Message message);
     Task UpdateChatLastMessageAtAsync(Guid chatId, DateTime lastMessageAt);
     Task UpdateMessageIsReadAsync(Message message);
+    Task UpdateMessagesIsReadAsync(Guid chatId, IEnumerable<Guid> messageIds);
 }

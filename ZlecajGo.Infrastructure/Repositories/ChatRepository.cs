@@ -67,5 +67,13 @@ internal class ChatRepository(ZlecajGoContext dbContext) : IChatRepository
                 .SetProperty(m => m.IsRead, true));
     }
 
+    public async Task UpdateMessagesIsReadAsync(Guid chatId, IEnumerable<Guid> messageIds)
+    {
+        await dbContext.Messages
+            .Where(m => messageIds.Contains(m.Id) && m.ChatId == chatId)
+            .ExecuteUpdateAsync(s => s
+                .SetProperty(m => m.IsRead, true));
+    }
+    
     private async Task SaveChangesAsync() => await dbContext.SaveChangesAsync();
 }

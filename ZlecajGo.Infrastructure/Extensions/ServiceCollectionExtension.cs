@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -6,6 +7,8 @@ using ZlecajGo.Domain.Constants;
 using ZlecajGo.Domain.Entities;
 using ZlecajGo.Domain.Repositories;
 using ZlecajGo.Infrastructure.Authorization;
+using ZlecajGo.Infrastructure.Hubs;
+using ZlecajGo.Infrastructure.Hubs.Chat;
 using ZlecajGo.Infrastructure.Persistence;
 using ZlecajGo.Infrastructure.Repositories;
 using ZlecajGo.Infrastructure.Seeders;
@@ -30,6 +33,12 @@ public static class ServiceCollectionExtension
         services.AddAuthorizationBuilder()
             .AddPolicy(PolicyNames.HasProfileCompleted, builder => 
                 builder.RequireClaim(AppClaimTypes.IsProfileCompleted, "True"));
+
+        services.AddSignalR().AddHubOptions<ChatHub>(options =>
+        {
+            options.EnableDetailedErrors = true;
+            options.AddFilter<ErrorHandlingHubFilter>();
+        });
         
         services.AddScoped<IZlecajGoSeeder, ZlecajGoSeeder>();
         
