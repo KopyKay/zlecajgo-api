@@ -82,7 +82,19 @@ public sealed class ChatHub
         
         if (chat is null)
         {
-            chat = new Domain.Entities.Chat { User1Id = userId, User2Id = recipientId };
+            string user1Id, user2Id;
+            if (string.CompareOrdinal(userId, recipientId) < 0)
+            {
+                user1Id = userId;
+                user2Id = recipientId;
+            }
+            else
+            {
+                user1Id = recipientId;
+                user2Id = userId;
+            }
+
+            chat = new Domain.Entities.Chat { User1Id = user1Id, User2Id = user2Id };
             chat.Id = await chatRepository.CreateChatAsync(chat);
         }
 
