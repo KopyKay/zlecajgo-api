@@ -229,11 +229,13 @@ internal class ZlecajGoSeeder(ZlecajGoContext dbContext, UserManager<User> userM
         var offerContractor101 = new OfferContractor {
             Contractor = user6,
             Offer = offer1,
+            StartDateTime = offer1.ExpiryDateTime,
             Status = cancelled
         };
         var offerContractor102 = new OfferContractor {
             Contractor = user1,
             Offer = offer1,
+            StartDateTime = offer1.ExpiryDateTime,
             Status = completed
         };
         
@@ -260,11 +262,13 @@ internal class ZlecajGoSeeder(ZlecajGoContext dbContext, UserManager<User> userM
         var offerContractor201 = new OfferContractor {
             Contractor = user2,
             Offer = offer2,
+            StartDateTime = offer2.ExpiryDateTime,
             Status = cancelled
         };
         var offerContractor202 = new OfferContractor {
             Contractor = user5,
             Offer = offer2,
+            StartDateTime = offer2.ExpiryDateTime,
             Status = planned
         };
         
@@ -291,16 +295,19 @@ internal class ZlecajGoSeeder(ZlecajGoContext dbContext, UserManager<User> userM
         var offerContractor301 = new OfferContractor {
             Contractor = user5,
             Offer = offer3,
+            StartDateTime = offer3.ExpiryDateTime,
             Status = cancelled
         };
         var offerContractor302 = new OfferContractor {
             Contractor = user6,
             Offer = offer3,
+            StartDateTime = offer3.ExpiryDateTime,
             Status = cancelled
         };
         var offerContractor303 = new OfferContractor {
             Contractor = user1,
             Offer = offer3,
+            StartDateTime = offer3.ExpiryDateTime,
             Status = completed
         };
         
@@ -327,6 +334,7 @@ internal class ZlecajGoSeeder(ZlecajGoContext dbContext, UserManager<User> userM
         var offerContractor401 = new OfferContractor {
             Contractor = user2,
             Offer = offer4,
+            StartDateTime = offer4.ExpiryDateTime,
             Status = planned
         };
         
@@ -353,16 +361,19 @@ internal class ZlecajGoSeeder(ZlecajGoContext dbContext, UserManager<User> userM
         var offerContractor501 = new OfferContractor {
             Contractor = user1,
             Offer = offer5,
+            StartDateTime = offer5.ExpiryDateTime,
             Status = cancelled
         };
         var offerContractor502 = new OfferContractor {
             Contractor = user2,
             Offer = offer5,
+            StartDateTime = offer5.ExpiryDateTime,
             Status = cancelled
         };
         var offerContractor503 = new OfferContractor {
             Contractor = user6,
             Offer = offer5,
+            StartDateTime = offer5.ExpiryDateTime,
             Status = cancelled
         };
         
@@ -410,6 +421,7 @@ internal class ZlecajGoSeeder(ZlecajGoContext dbContext, UserManager<User> userM
         var offerContractor701 = new OfferContractor {
             Contractor = user5,
             Offer = offer7,
+            StartDateTime = offer7.ExpiryDateTime,
             Status = cancelled
         };
         
@@ -436,6 +448,7 @@ internal class ZlecajGoSeeder(ZlecajGoContext dbContext, UserManager<User> userM
         var offerContractor801 = new OfferContractor {
             Contractor = user3,
             Offer = offer8,
+            StartDateTime = offer8.ExpiryDateTime,
             Status = cancelled
         };
         

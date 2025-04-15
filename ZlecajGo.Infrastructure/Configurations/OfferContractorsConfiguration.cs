@@ -8,6 +8,9 @@ public class OfferContractorsConfiguration : IEntityTypeConfiguration<OfferContr
 {
     public void Configure(EntityTypeBuilder<OfferContractor> builder)
     {
+        builder.Property(oc => oc.StartDateTime)
+            .IsRequired();
+        
         builder.Property(oc => oc.StatusId)
             .HasDefaultValue(4);
     }

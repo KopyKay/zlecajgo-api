@@ -8,6 +8,8 @@ public class OfferContractor
     public User Contractor { get; set; } = null!;
     public string ContractorId { get; set; } = null!;
     
+    public DateTime StartDateTime { get; set; }
+    
     public Status Status { get; set; } = null!;
     public int StatusId { get; set; }
 }
