@@ -21,12 +21,11 @@ public class GetContractedOfferOrOffersQueryHandler
 {
     public async Task<OneOf<OfferContractorDto, IEnumerable<OfferContractorDto>>> Handle(GetContractedOfferOrOffersQuery request, CancellationToken cancellationToken)
     {
-        var user = userContext.GetCurrentUser()!;
+        var contractorId = userContext.GetCurrentUser()!.Id;
         
         if (request.OfferId.HasValue)
         {
             var offerId = request.OfferId.Value;
-            var contractorId = user.Id;
         
             logger.LogInformation("Getting contracted offer with offer id [{OfferId}] and contractor id [{ContractorId}]", 
                 offerId, contractorId);
@@ -39,9 +38,9 @@ public class GetContractedOfferOrOffersQueryHandler
             return OneOf<OfferContractorDto, IEnumerable<OfferContractorDto>>.FromT0(contractedOfferDto);
         }
         
-        logger.LogInformation("Getting all contracted offers for user with id [{UserId}]", user.Id);
+        logger.LogInformation("Getting all contracted offers for user with id [{ContractorId}]", contractorId);
 
-        var contractedOffers = await offerContractorRepository.GetContractedOffersAsync(user.Id);
+        var contractedOffers = await offerContractorRepository.GetContractedOffersAsync(contractorId);
         
         var contractedOffersDto = mapper.Map<IEnumerable<OfferContractorDto>>(contractedOffers);
 

@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using ZlecajGo.Application.OfferContractors.Dtos;
 using ZlecajGo.Domain.Constants;
 using ZlecajGo.Domain.Entities;
 using ZlecajGo.Domain.Repositories;
@@ -8,34 +9,51 @@ namespace ZlecajGo.Infrastructure.Repositories;
 
 internal class OfferContractorRepository(ZlecajGoContext dbContext) : IOfferContractorRepository
 {
-    public async Task<IEnumerable<OfferContractor>> GetContractedOffersAsync(string userId)
+    public async Task<IEnumerable<OfferContractor>> GetProvidedOffersWithContractorAsync(string providerId)
+    {
+        var providedOffers = await dbContext.OfferContractors
+            .AsNoTracking()
+            .Where(oc => oc.Offer.ProviderId == providerId)
+            .ToListAsync();
+
+        return providedOffers;
+    }
+
+    public async Task<OfferContractor?> GetProvidedOfferWithContractorByHisIdAsync(string providerId, string contractorId)
+    {
+        var providedOffer = await dbContext.OfferContractors
+            .AsNoTracking()
+            .FirstOrDefaultAsync(oc => oc.Offer.ProviderId == providerId &&
+                                       oc.ContractorId == contractorId);
+        
+        return providedOffer;
+    }
+    
+    public async Task<IEnumerable<OfferContractor>> GetContractedOffersAsync(string contractorId)
     {
         var contractedOffers = await dbContext.OfferContractors
             .AsNoTracking()
-            .Where(oc => oc.Offer.ProviderId == userId ||
-                         oc.ContractorId == userId)
+            .Where(oc => oc.ContractorId == contractorId)
             .ToListAsync();
 
         return contractedOffers;
     }
 
-    public async Task<OfferContractor?> GetContractedOfferByIdAsync(Guid offerId, string userId)
+    public async Task<OfferContractor?> GetContractedOfferByIdAsync(Guid offerId, string contractorId)
     {
         var contractedOffer = await dbContext.OfferContractors
             .AsNoTracking()
             .FirstOrDefaultAsync(oc => oc.OfferId == offerId &&
-                                       (oc.Offer.ProviderId == userId ||
-                                        oc.ContractorId == userId));
+                                       oc.ContractorId == contractorId);
 
         return contractedOffer;
     }
 
-    public async Task<OfferContractor?> GetContractedOfferByIdWithTrackingAsync(Guid offerId, string userId)
+    public async Task<OfferContractor?> GetOfferContractorByIdWithTrackingAsync(Guid offerId, string contractorId)
     {
         var offerContractor = await dbContext.OfferContractors
             .FirstOrDefaultAsync(oc => oc.OfferId == offerId &&
-                                       (oc.Offer.ProviderId == userId ||
-                                        oc.ContractorId == userId));
+                                       oc.ContractorId == contractorId);
 
         return offerContractor;
     }
@@ -53,13 +71,28 @@ internal class OfferContractorRepository(ZlecajGoContext dbContext) : IOfferCont
         if (cancelledContractorContract != null)
         {
             await UpdateContractStatusToPlannedAsync(cancelledContractorContract);
+            await UpdateOfferStatusToTaken();
+            await SaveChangesAsync();
             return true;
         }
 
         await dbContext.OfferContractors.AddAsync(entity);
+        await UpdateOfferStatusToTaken();
         await SaveChangesAsync();
 
         return true;
+
+        async Task UpdateOfferStatusToTaken()
+        {
+            var offer = await dbContext.Offers
+                .FirstOrDefaultAsync(o => o.Id == offerId);
+
+            if (offer != null)
+            {
+                offer.StatusId = 2;
+                dbContext.Update(offer);
+            }
+        }
     }
 
     public async Task SaveChangesAsync() => await dbContext.SaveChangesAsync();

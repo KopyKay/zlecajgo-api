@@ -6,6 +6,7 @@ using ZlecajGo.Application.OfferContractors.Commands.ContractUserWithOffer;
 using ZlecajGo.Application.OfferContractors.Commands.UpdateContractedOffer;
 using ZlecajGo.Application.OfferContractors.Dtos;
 using ZlecajGo.Application.OfferContractors.Queries.GetContractedOfferOrOffers;
+using ZlecajGo.Application.OfferContractors.Queries.GetProvidedOfferOrOffersWithContractor;
 using ZlecajGo.Domain.Constants;
 
 namespace ZlecajGo.API.Controllers;
@@ -15,7 +16,17 @@ namespace ZlecajGo.API.Controllers;
 [Authorize(Policy = PolicyNames.HasProfileCompleted)]
 public class OfferContractorController(IMediator mediator) : ControllerBase
 {
-    [HttpGet]
+    [HttpGet("providedOfferOrOffersWithContractor")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(OfferContractorDto))]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<OfferContractorDto>))]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> GetProvidedOfferOrOffersWithContractor([FromQuery] string? contractorId)
+    {
+        var result = await mediator.Send(new GetProvidedOfferOrOffersWithContractorQuery(contractorId));
+        return result.Match<IActionResult>(Ok, Ok);
+    }
+    
+    [HttpGet("contractedOfferOrOffers")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(OfferContractorDto))]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<OfferContractorDto>))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]

@@ -24,29 +24,27 @@ public class UpdateContractedOfferCommandHandler
     {
         var user = userContext.GetCurrentUser()!;
         
-        var contractorId = request.ContractorId;
         var offerId = request.OfferId;
+        var contractorId = request.ContractorId;
         
-        logger.LogInformation("Updating contracted offer with id [{OfferId}] for contractor with id [{ContractorId}]",
+        logger.LogInformation("Updating contracted offer with id [{OfferId}] and contractor with id [{ContractorId}]",
             offerId, contractorId);
 
+        var offer = await offerRepository.GetOfferByIdAsync(offerId)
+                    ?? throw new NotFoundException(nameof(Offer), offerId.ToString());
+        
         _ = await userStore.FindByIdAsync(contractorId, cancellationToken)
             ?? throw new NotFoundException(nameof(User), contractorId);
-        
-        var offer = await offerRepository.GetOfferByIdAsync(offerId)
-            ?? throw new NotFoundException(nameof(Offer), offerId.ToString());
 
         var contractedOffer = await offerContractorRepository
-            .GetContractedOfferByIdWithTrackingAsync(offerId, contractorId)
+            .GetOfferContractorByIdWithTrackingAsync(offerId, contractorId)
             ?? throw new NotFoundException(nameof(OfferContractor), $"{offerId}] and [{contractorId}");
 
-        if (contractedOffer.ContractorId != user.Id)
-        {
-            if (offer.ProviderId != user.Id && contractedOffer.ContractorId != contractorId)
-            {
-                throw new NotAllowedException();
-            }
-        }
+        var isUserProvider = user.Id == offer.ProviderId;
+        var isUserContractor = user.Id == contractedOffer.ContractorId;
+
+        if (!isUserProvider && !isUserContractor) throw new NotAllowedException();
+        if (contractorId != contractedOffer.ContractorId) throw new NotAllowedException();
         
         mapper.Map(request, contractedOffer);
         

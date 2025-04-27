@@ -10,7 +10,17 @@ public class OfferContractorProfile : Profile
     public OfferContractorProfile()
     {
         CreateMap<OfferContractor, OfferContractorDto>();
-        CreateMap<ContractUserWithOfferCommand, OfferContractor>();
-        CreateMap<UpdateContractedOfferCommand, OfferContractor>();
+        
+        CreateMap<ContractUserWithOfferCommand, OfferContractor>()
+            .ForMember(o => o.StartDateTime, opt =>
+                opt.MapFrom(dto => dto.StartDateTime.Kind != DateTimeKind.Utc
+                    ? dto.StartDateTime.ToUniversalTime()
+                    : dto.StartDateTime));
+                    
+        CreateMap<UpdateContractedOfferCommand, OfferContractor>()
+            .ForMember(o => o.StartDateTime, opt =>
+                opt.MapFrom(dto => dto.StartDateTime.Kind != DateTimeKind.Utc
+                    ? dto.StartDateTime.ToUniversalTime()
+                    : dto.StartDateTime));
     }
 }
