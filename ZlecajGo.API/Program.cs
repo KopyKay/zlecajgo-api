@@ -6,6 +6,7 @@ using ZlecajGo.Application.Extensions;
 using ZlecajGo.Domain.Entities;
 using ZlecajGo.Infrastructure.Extensions;
 using ZlecajGo.Infrastructure.Hubs.Chat;
+using ZlecajGo.Infrastructure.Hubs.Notification;
 using ZlecajGo.Infrastructure.Seeders;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -40,6 +41,7 @@ app.MapGroup("/api/identity")
     .MapIdentityApi<User>();
 
 app.MapHub<ChatHub>("hubs/chat");
+app.MapHub<NotificationHub>("hubs/notification");
 
 app.MapControllers();
 
