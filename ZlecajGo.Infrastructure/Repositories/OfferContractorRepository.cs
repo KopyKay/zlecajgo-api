@@ -14,6 +14,7 @@ internal class OfferContractorRepository(ZlecajGoContext dbContext) : IOfferCont
         var providedOffers = await dbContext.OfferContractors
             .AsNoTracking()
             .Where(oc => oc.Offer.ProviderId == providerId)
+            .OrderByDescending(oc => oc.StartDateTime)
             .ToListAsync();
 
         return providedOffers;
@@ -34,6 +35,7 @@ internal class OfferContractorRepository(ZlecajGoContext dbContext) : IOfferCont
         var contractedOffers = await dbContext.OfferContractors
             .AsNoTracking()
             .Where(oc => oc.ContractorId == contractorId)
+            .OrderByDescending(oc => oc.StartDateTime)
             .ToListAsync();
 
         return contractedOffers;
