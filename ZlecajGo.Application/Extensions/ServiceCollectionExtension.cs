@@ -11,7 +11,7 @@ public static class ServiceCollectionExtension
     {
         var applicationAssembly = typeof(ServiceCollectionExtension).Assembly;
         
-        services.AddAutoMapper(applicationAssembly);
+        services.AddAutoMapper(cfg => { }, applicationAssembly);
         services.AddMediatR(cfg =>
             cfg.RegisterServicesFromAssembly(applicationAssembly));
         services.AddValidatorsFromAssembly(applicationAssembly)
