@@ -42,5 +42,7 @@
     &lt;ProjectFile&gt;8A38C805-EA89-40F5-9F0A-3EF79BFA1DA1/d:Offers/d:Commands/f:CreateOfferCommandHandlerTests.cs&lt;/ProjectFile&gt;&#xD;
     &lt;ProjectFile&gt;8A38C805-EA89-40F5-9F0A-3EF79BFA1DA1/d:Offers/d:Commands/f:DeleteOfferCommandHandlerTests.cs&lt;/ProjectFile&gt;&#xD;
     &lt;ProjectFile&gt;8A38C805-EA89-40F5-9F0A-3EF79BFA1DA1/d:Offers/d:Commands/f:UpdateOfferCommandHandlerTests.cs&lt;/ProjectFile&gt;&#xD;
+    &lt;ProjectFile&gt;57963E5E-E7A5-411A-B99E-22445CE4308C/f:AuthenticationIntegrationTests.cs&lt;/ProjectFile&gt;&#xD;
+    &lt;ProjectFile&gt;57963E5E-E7A5-411A-B99E-22445CE4308C/f:OffersIntegrationTests.cs&lt;/ProjectFile&gt;&#xD;
   &lt;/Or&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

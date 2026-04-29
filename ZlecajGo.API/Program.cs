@@ -1,4 +1,3 @@
-using Microsoft.OpenApi.Models;
 using Serilog;
 using ZlecajGo.API.Extensions;
 using ZlecajGo.API.Middlewares;
@@ -48,3 +47,5 @@ app.MapControllers();
 Log.Information("API started");
 
 app.Run();
+
+public partial class Program { }
