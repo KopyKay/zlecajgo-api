@@ -13,7 +13,9 @@ public class CreateOfferCommandValidator : AbstractValidator<CreateOfferCommand>
             .Length(10, 500);
         
         RuleFor(command => command.Price)
-            .GreaterThan(0).LessThan(100000.00m);
+            .GreaterThan(0).LessThan(100000.00m)
+            .Must(price => decimal.Round(price, 2) == price)
+            .WithMessage("Price must have max 2 decimal places.");
         
         RuleFor(command => command.ExpiryDateTime)
             .GreaterThan(DateTime.UtcNow).LessThan(DateTime.UtcNow.AddDays(8));

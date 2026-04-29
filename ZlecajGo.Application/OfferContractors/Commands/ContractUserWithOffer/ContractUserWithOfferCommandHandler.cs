@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using ZlecajGo.Application.Users;
+using ZlecajGo.Domain.Constants;
 using ZlecajGo.Domain.Entities;
 using ZlecajGo.Domain.Exceptions;
 using ZlecajGo.Domain.Repositories;
@@ -23,6 +24,8 @@ public class ContractUserWithOfferCommandHandler
     public async Task<bool> Handle(ContractUserWithOfferCommand request, CancellationToken cancellationToken)
     {
         var user = userContext.GetCurrentUser()!;
+
+        request.StatusId ??= AppStatuses.Planned.Id;
         
         var contractorId = request.ContractorId;
         var offerId = request.OfferId;

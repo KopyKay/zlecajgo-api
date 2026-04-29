@@ -33,4 +33,14 @@
 	<s:String x:Key="/Default/Environment/AssemblyExplorer/XmlDocument/@EntryValue">&lt;AssemblyExplorer&gt;&#xD;
   &lt;Assembly Path="C:\Users\kopac\.nuget\packages\microsoft.aspnetcore.identity.entityframeworkcore\8.0.12\lib\net8.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll" /&gt;&#xD;
   &lt;Assembly Path="C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\8.0.11\Microsoft.Extensions.Identity.Core.dll" /&gt;&#xD;
-&lt;/AssemblyExplorer&gt;</s:String></wpf:ResourceDictionary>
+&lt;/AssemblyExplorer&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=4ed49d56_002D796f_002D4256_002D8d95_002Dffe7e3f19100/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="All tests from GetOfferOrOffersQueryHandlerTests.cs" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;Or&gt;&#xD;
+    &lt;ProjectFile&gt;8A38C805-EA89-40F5-9F0A-3EF79BFA1DA1/d:Offers/d:Queries/f:GetOfferOrOffersQueryHandlerTests.cs&lt;/ProjectFile&gt;&#xD;
+    &lt;ProjectFile&gt;8A38C805-EA89-40F5-9F0A-3EF79BFA1DA1/d:Offers/d:Commands/f:CreateOfferCommandValidatorTests.cs&lt;/ProjectFile&gt;&#xD;
+    &lt;ProjectFile&gt;8A38C805-EA89-40F5-9F0A-3EF79BFA1DA1/d:OfferContractors/d:Commands/f:ContractUserWithOfferCommandHandlerTests.cs&lt;/ProjectFile&gt;&#xD;
+    &lt;ProjectFile&gt;8A38C805-EA89-40F5-9F0A-3EF79BFA1DA1/d:Offers/d:Commands/f:CreateOfferCommandHandlerTests.cs&lt;/ProjectFile&gt;&#xD;
+    &lt;ProjectFile&gt;8A38C805-EA89-40F5-9F0A-3EF79BFA1DA1/d:Offers/d:Commands/f:DeleteOfferCommandHandlerTests.cs&lt;/ProjectFile&gt;&#xD;
+    &lt;ProjectFile&gt;8A38C805-EA89-40F5-9F0A-3EF79BFA1DA1/d:Offers/d:Commands/f:UpdateOfferCommandHandlerTests.cs&lt;/ProjectFile&gt;&#xD;
+  &lt;/Or&gt;&#xD;
+&lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
